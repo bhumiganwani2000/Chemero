@@ -1,0 +1,690 @@
+<!-- {% extends "partition/layout.html" %}
+
+
+{% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+	<div class="container-fluid">
+
+		<!-- Title -->
+		<section class="content-header">
+			<h1>Product Category</h1>
+			<!-- Breadcrumb -->
+			<ol class="breadcrumb">
+				<li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li class="active">Product Category</li>
+			</ol>
+			<!-- /Breadcrumb -->
+		</section>
+		<!-- /Title -->
+		{% include "partition/notification.html" %}
+		<!-- Row -->
+		<section class="content">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default card-view">
+						<div class="panel-heading">
+							<div class="pull-left">
+								<!-- <h6 class="panel-title txt-dark">Settings</h6> -->
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-wrapper collapse in">
+							<div class="panel-body">
+								<div class="table-wrap">
+									<div class="table-responsive">
+										{% if product %}
+										<form method="POST" action="/backend/productEdit/{{product._id}}"
+											class="form-horizontal" enctype="multipart/form-data">
+											{% else %}
+											<form id="formdata" method="POST" action="/backend/addProduct"
+												class="form-horizontal" enctype="multipart/form-data">
+												{% endif %}
+												<table border="0" class="table display  pb-30">
+													<div class="col-sm-12">
+														<div class="panel-wrapper collapse in">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="productCategoryName">Choose a
+																		product:</label>
+																	<div class="col-sm-6">
+																		<select id="productCategoryName"
+																			name="productCategoryName">
+																			{% for productCategoryName in
+																			productCategoryData %}
+																			{% if(productCategoryName.is_separateCategory == "true") %}
+																			<option value="{{productCategoryName._id}}"
+																				{{"selected"
+																				if(productCategoryName._id==product.product_id)}}>
+																				{{productCategoryName.productCategoryName}}
+																			</option>
+																			{% endif %}
+																			{% endfor %}
+																		</select>
+																	</div>
+
+																</div>
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_name">Product Category
+																		Name:</label>
+																	<div class="col-sm-6">
+																		<input type="text" class="form-control"
+																			name="product_name" id="product_name"
+																			value="{{product.product_name}}" />
+																	</div>
+																</div>
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_image">Product Category cover
+																		pic:</label>
+																	<div class="col-sm-6">
+																		{% if product %}
+																		<input type="hidden" id="productdeleteid"
+																			value="{{product._id}}">
+																		<div class="upload__box">
+																			<input type="file" class="form-control"
+																				id="productImage" data-id ="Img_pre"  name="productImage"
+																				multiple value="" data-max_length="20">
+																			<div id="imgs"></div>
+																			<input type="hidden" name="files_selected"
+																				id="files_selected" />
+																			
+																			{% set i = 0 %}
+																			{% for image in product.product_image %}
+																			{% set i = i+1 %}
+																			{% if image.is_deleted == "0" %}
+																			<div class="containerdiv_img">
+																				<input type="hidden" id="productImgId"
+																					value="{{image._id}}">
+																				<img id="proimage{{i}}"
+																					class="upload__img-wrap"
+																					src="{{image.path}}" height="200px"
+																					width="200px" alt=""><span
+																					id="cls{{i}} "
+																					class="close_img"><b>X</b></span>
+																			</div>
+																			{% endif %}
+																			{% endfor %}
+																			{% else %}
+																			<input type="file" class="form-control"
+																				id="gallery-photo-add" multiple
+																				name="productImage" data-id ="Img_pre" value="" >
+																				<input type="hidden" name="files_selected_pre"
+																				id="files_selected_pre " />
+																				<!-- <div class="img_preview">
+																					<img id="prev1" src=""><span class='close1'>&times;</span>
+																				</div> -->
+																			<div  class="gallery"></div>
+
+																			{% endif %}
+																		</div>
+																	</div>
+																</div>
+
+																<!--<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="pdf_heading">PDF Heading:</label>
+																	<div class="col-sm-6">
+																		<input type="text" class="form-control"
+																			name="pdf_heading" id="pdf_heading"
+																			value="{{product.pdf_heading}}" />
+																	</div>
+																</div>
+
+																{% if product %}
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_pdf">Add More Pdf:</label>
+																	<div class="col-sm-6">
+
+																		<input type="file" class="form-control"
+																			id="productPdf" multiple name="productPdf"
+																			value="">
+
+																	</div>
+																</div>
+																{% if(product.product_pdf.length > 0)%}
+																{% for name in product.product_pdf %}
+
+
+																<div class="form-group">
+
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_pdf">Uploaded Pdf:</label>
+																	<div class="col-sm-6">
+
+																		<a href="{{name.path}}">
+																			<p>{{name.fileName}}</p>
+																		</a>
+																	</div>
+
+
+																	<div class="col-sm-1">
+																		<div class="" style="float: right;">
+																			<i class="fa fa-trash fa-2x removePdf"
+																				id="{{product._id}}"
+																				name="{{name._id}}"></i>
+																		</div>
+																	</div>
+																</div>
+
+
+																{% endfor %}
+																{% endif %}
+																{%else%}
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_pdf">Upload Pdf:</label>
+																	<div class="col-sm-6">
+
+																		<input type="file" class="form-control"
+																			id="productPdf" multiple name="productPdf"
+																			value="">
+
+																	</div>
+																</div>
+																{% endif %}-->
+
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_description">Product Category
+																		Description:</label>
+																	<div class="col-sm-6">
+																		<textarea class="form-control"
+																			name="product_description"
+																			id="product_description" rows="9"
+																			style="resize:none;">{{product.product_description}}</textarea>
+																	</div>
+																</div>
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_description">Apllication
+																		Descrption:</label>
+																	<div class="col-sm-6">
+																		<textarea class="form-control"
+																			name="application_description"
+																			id="application_description" rows="9"
+																			style="resize:none;">{{product.application}}</textarea>
+																	</div>
+																</div>
+																<div class="form-group">
+																	<div class="col-sm-6">
+																		<input type="hidden" class="form-control"
+																			name="copy" id="copyText" value="">
+																	</div>
+																</div>
+																{% if (product.duties.length > 0 )%}
+																<div class="" style="float: right;"><button
+																		class="btn btn-primary" id="addDuty"
+																		type="button" onclick="add_duties();">Add
+																		More Duties</button> </div>
+
+																{% for data in product.duties %}
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_description">Duties:</label>
+																	<div class="col-sm-6">
+																		<input type="text" class="form-control"
+																			name="duties" id="duties" rows="9"
+																			style="resize:none;"
+																			value="{{data.duties}}">
+																	</div>
+																	<div class="col-sm-1">
+																		<div class="" style="float: right;">
+																			<i
+																				class="fa fa-trash fa-2x removeTextarea"></i>
+																		</div>
+																	</div>
+																</div>
+
+																{% endfor %}
+																<div id="moreDuties" class="form-group"></div>
+																{%else%}
+																<div class="" style="float: right;"><button
+																		class="btn btn-primary" id="addDuty"
+																		type="button" onclick="add_duties();">Add
+																		More Duties</button> </div>
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2"
+																		for="product_description">Duties:</label>
+																	<div class="col-sm-6">
+																		<input class="form-control" name="duties"
+																			id="duties" rows="9" style="resize:none;"
+																			value="">
+																	</div>
+																	<div class="col-sm-1">
+																		<div class="" style="float: right;">
+																			<i
+																				class="fa fa-trash fa-2x removeTextarea"></i>
+																		</div>
+																	</div>
+																</div>
+
+																<div id="moreDuties" class="form-group"></div>
+																{% endif %}
+
+																{% if (product.workProcess[0].heading.length > 0 )%}
+
+																<div class="" style="float: right;"><button
+																		class="btn btn-primary" id="addScnt"
+																		type="button" onclick="addWorkProcess();">Add
+																		TECHNICAL ASPECTS</button> </div>
+
+
+																{% for heading in product.workProcess %}
+																<div class="form-group">
+																	<div class="form-group">
+																		<label class="control-label mb-10 col-sm-2"
+																			for="heading" id="heading">Category
+																			Heading:</label>
+																		<div class="col-sm-6">
+																			<input type="text" class="form-control"
+																				name="heading" id="heading"
+																				value="{{heading.heading}}" />
+
+
+																		</div>
+																		<div class="col-sm-1">
+																			<div class="" style="float: right;">
+																				<i
+																					class="fa fa-trash fa-2x removeAddressTextarea"></i>
+																			</div>
+																		</div>
+																	</div>
+
+																	<div class="form-group">
+																		<label class="control-label mb-10 col-sm-2"
+																			for="description" id="description">Category
+																			Description:</label>
+																		<div class="col-sm-6" id="p_scents">
+																			<textarea class="form-control"
+																				name="description" id="description"
+																				rows="9" style="resize:none;"
+																				value="{{heading.description}}">{{heading.description}}</textarea>
+																		</div>
+																	</div>
+
+																</div>
+																{% endfor %}
+																<div id="moreWorkProcess" class="form-group"></div>
+																{%else%}
+																<div class="" style="float: right;"><button
+																		class="btn btn-primary" id="addScnt"
+																		type="button" onclick="addWorkProcess();">Add
+																		TECHNICAL ASPECTS</button> </div>
+
+																<div class="form-group" id="p_scents">
+
+
+																	<div class="form-group">
+																		<label class="control-label mb-10 col-sm-2"
+																			for="heading" id="heading">Category
+																			Heading:</label>
+																		<div class="col-sm-6">
+																			<input type="text" class="form-control"
+																				name="heading" id="heading" />
+
+
+																		</div>
+																		<div class="col-sm-1">
+																			<div class="" style="float: right;">
+																				<i
+																					class="fa fa-trash fa-2x removeAddressTextarea"></i>
+																			</div>
+																		</div>
+
+																	</div>
+																	<div class="form-group">
+																		<label class="control-label mb-10 col-sm-2"
+																			for="description" id="description">Category
+																			Description:</label>
+																		<div class="col-sm-6" id="p_scents">
+																			<textarea class="form-control"
+																				name="description" id="description"
+																				rows="9"
+																				style="resize:none;"></textarea>
+																		</div>
+																	</div>
+
+																</div>
+																<div id="moreWorkProcess" class="form-group"></div>
+
+																{% endif %}
+															</div>
+														</div>
+													</div>
+													<tr>
+														<td colspan="2">
+
+															{% if product %}
+															<input type="submit" class="btn btn-success btn-flat"
+																value="Update">
+															{%else%}
+															<input id="submit" type="submit"
+																class="btn btn-success btn-flat" value="submit">
+															{% endif %}
+														</td>
+													</tr>
+												</table>
+											</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- /Row -->
+			</div>
+		</section>
+
+		{% endblock %}
+
+		{% block Jscript %}
+
+		<script>
+
+			var intDutyTextBox = 0;
+
+			function add_duties() {
+				intDutyTextBox++;
+				var objNewDiv_d = document.createElement('div');
+				objNewDiv_d.setAttribute('id', 'div_' + intDutyTextBox);
+
+				//by kiran sir
+				var textArea1 = document.createElement('textarea')
+				textArea1.setAttribute('id', 'description_duty');
+				textArea1.setAttribute('name', 'description_d');
+				textArea1.setAttribute('rows', '10');
+				textArea1.setAttribute('cols', '55');
+
+				// textArea.setAttribute('style','resize:none;')
+
+				objNewDiv_d.innerHTML = '<div class="form-group">\
+					<div class="form-group">\
+						<label class="control-label mb-10 col-sm-2" for="duties" id="duties">Duties:</label>\
+						<div class="col-sm-6" id="_new_textArea_div_duty'+ intDutyTextBox + '">\
+							<input type="text" class="form-control" name="duties" id="duties"/>\
+						</div>\
+						<div class="col-sm-1">\
+							<div class=""  style="float: right;">\
+								<i class="fa fa-trash fa-2x removeTextaready_'+ intDutyTextBox + '"  ></i> </div>\
+							</div>\
+						</div>\
+					</div>\ '
+
+				document.getElementById('moreDuties').appendChild(objNewDiv_d);
+				// document.getElementById("_new_textArea_div_duty" + intDutyTextBox).appendChild(textArea1);
+
+				// new nicEditor().panelInstance(textArea1);
+				// var edit_content = $('#formdata').find('.nicEdit-main').html();
+				// console.log("edit_content",edit_content);				
+				$('.removeTextaready_' + intDutyTextBox).click(function () {
+					// $(this).hide();
+					let parent = $(this).parent().parent().parent().parent().parent().html('');
+				});
+			}
+			$('.removeTextarea').click(function () {
+				// $(this).hide();
+				let parent = $(this).parent().parent().parent().html('');
+				// alert("parent", parent);
+			});
+			
+			
+		</script>
+		<script>
+			var intWorkProcessTextBox = 0;
+			function addWorkProcess() {
+				intWorkProcessTextBox++;
+				var objNewDiv = document.createElement('div');
+				objNewDiv.setAttribute('id', 'div_' + intWorkProcessTextBox);
+
+				//by kiran sir
+				var textArea = document.createElement('textarea')
+				textArea.setAttribute('id', 'description_');
+				textArea.setAttribute('name', 'description');
+				textArea.setAttribute('rows', '10');
+				textArea.setAttribute('cols', '70');
+
+				// textArea.setAttribute('style','resize:none;')
+
+				objNewDiv.innerHTML = '<div class="form-group">\
+								<div class="form-group">\
+									<label class="control-label mb-10 col-sm-2" for="heading" id="heading">Heading:</label>\
+									<div class="col-sm-6">\
+										<input type="text" class="form-control" name="heading" id="heading"/>\
+									</div>\
+									<div class="col-sm-1">\
+										<div class="" style="float: right;">\
+											<i class="fa fa-trash fa-2x removeAddressTextaready_'+ intWorkProcessTextBox + '"  ></i> </div>\
+										</div>\
+									</div>\
+								</div>\
+									<div class="form-group">\
+										<label class="control-label mb-10 col-sm-2" for="description" id="description">Description:</label>\
+										<div class="col-sm-6"  id="_new_textArea_div_'+ intWorkProcessTextBox + '">\
+									</div>\
+								</div>'
+
+				document.getElementById('moreWorkProcess').appendChild(objNewDiv);
+				document.getElementById("_new_textArea_div_" + intWorkProcessTextBox).appendChild(textArea);
+
+				new nicEditor().panelInstance(textArea);
+				// var edit_content = $('#formdata').find('.nicEdit-main').html();
+				// console.log("edit_content",edit_content);				
+				$('.removeAddressTextaready_' + intWorkProcessTextBox).click(function () {
+					// $(this).hide();
+					let parent = $(this).parent().parent().parent().parent().parent().html('');
+				});
+			}
+			$('.removeAddressTextarea').click(function () {
+				// $(this).hide();
+				let parent = $(this).parent().parent().parent().parent().html('');
+				console.log("parent", parent);
+			});
+			$('.removePdf').click(function () {
+				var host = window.location.origin;
+
+				let id = $(this).attr('id'); //product's id
+
+
+				let _id = $(this).attr('name'); //pdf's id
+				var thisElement = this;
+
+				// let parent = $(this).parent().parent().parent().html('');
+
+
+				$.ajax({
+					type: 'POST',
+					url: host + "/backend/pdfDelete",
+					data: { id: id, _id: _id },
+					success: function (resultData) {
+
+						// alert(data);
+						if (resultData == 'success') {
+							$(thisElement).parent().parent().parent().hide();
+
+						} else {
+							alert("Something went wrong")
+						}
+						// alert("Save Complete")
+					}
+				});
+
+
+			});
+			
+			// after closing preview show updated image preview
+			function updateFiles_pre() {
+				var fileIndexes = $('.gallery > div').map(function () {
+					return $(this).data('index');
+				}).get().join(",");
+				$('#files_selected_pre').val(fileIndexes);
+			}
+			//insert time multiple images preview 
+
+			$("#gallery-photo-add").on('change', function () {
+				var fileList = this.files;
+				$('.gallery').empty();
+				for (var i = 0; i < fileList.length; i++) {
+					var t = window.URL || window.webkitURL;
+					var objectUrl = t.createObjectURL(fileList[i]);
+					$('.removeimg').fadeIn();
+					$('.gallery').append('<div data-index="' + i + '" class="pip img_' + i + '"><span class="remove img_' + i + '" style="cursor:pointer; margin-right: 3px ;font-size: 30px;position: absolute;right: 245px;color: red ;"><b>x</b></span><img class="img_' + i + '" src="' + objectUrl + '" width="200px" height="200px" style="margin-right: 3px;"></div>');
+					j = i + 1;
+
+				}
+				updateFiles_pre();
+			});
+			// insert time preview close
+            $(document).on('click', '.remove', function(){
+			// alert(3)
+            var pips = $('.pip').toArray();
+            // alert(pips)
+            var $selectedPip = $(this).parent('.pip');
+            var index = pips.indexOf($selectedPip[0]);
+
+            var dt = new DataTransfer();
+            var files = $("#gallery-photo-add")[0].files;
+
+            for (var fileIdx = 0; fileIdx < files.length; fileIdx++) {
+                if (fileIdx !== index) {
+                dt.items.add(files[fileIdx]);
+              }
+            }
+            $("#gallery-photo-add")[0].files = dt.files;
+            $selectedPip.remove();
+          });
+
+			// function del(index) {
+			// 	$('div.img_' + index).remove();			
+			//   updateFiles();						
+			// }
+			
+			// after closing preview show updated image preview			
+			function updateFiles() {
+				var fileIndexes = $('#imgs > div').map(function () {
+					return $(this).data('index');
+				}).get().join(",");
+				$('#files_selected').val(fileIndexes);
+			}
+			// update tme multiple images preview
+			$("#productImage").on('change', function () {
+				var fileList = this.files;
+				$('#imgs').empty();
+				for (var i = 0; i < fileList.length; i++) {
+					var t = window.URL || window.webkitURL;
+					var objectUrl = t.createObjectURL(fileList[i]);
+					$('.removeimg').fadeIn();
+					$('#imgs').append('<div data-index=" ' + i + '" class="pip img_' + i + '"><span class="remove1 img_' + i + '" style="cursor:pointer; margin-right: 3px ;font-size: 30px;position: absolute;right: 245px;color: red ;"><b>x</b></span><img class="img_' + i + '" src="' + objectUrl + '" width="200px" height="200px" style="margin-right: 3px;"></div>');
+					j = i + 1;
+				}
+				updateFiles();
+			});
+			
+		//  update time preview close
+		  $(document).on('click', '.remove1', function(){
+			// alert(3)
+            var pips = $('.pip').toArray();
+            // alert(pips)
+            var $selectedPip = $(this).parent('.pip');
+            var index = pips.indexOf($selectedPip[0]);
+
+            var dt = new DataTransfer();
+            var files = $("#productImage")[0].files;
+
+            for (var fileIdx = 0; fileIdx < files.length; fileIdx++) {
+                if (fileIdx !== index) {
+                dt.items.add(files[fileIdx]);
+              }
+            }
+            $("#productImage")[0].files = dt.files;
+
+            $selectedPip.remove();
+          });
+			$(document).ready(function () {
+				var host = window.location.origin;
+				$(function () {
+					"use strict";
+					var SweetAlert = function () { };
+
+					SweetAlert.prototype.init = function () {
+
+						//Parameter
+						$('body').on('click', '.close_img', function (e) {
+							
+							var deleteid = $('#productImgId').val();
+							// alert(deleteid,"deleteid")
+							var id = $('#productdeleteid').val();
+							console.log(id, "id");
+							var thisElement = this;
+							
+							swal({
+								title: "Are you sure?",
+								text: "You will not be able to recover this Project!",
+								type: "warning",
+								showCancelButton: true,
+								confirmButtonColor: "#e69a2a",
+								confirmButtonText: "Yes, delete it!",
+								cancelButtonText: "No, cancel plx!",
+								closeOnConfirm: false,
+								closeOnCancel: false
+							}, function (isConfirm) {
+								if (isConfirm) {
+									$.ajax({
+										type: 'GET',
+										url: host + "/backend/productImageDelete/" + id + "/" + deleteid,
+										success: function (resultData) {
+											//  alert(resultData)
+											console.log(resultData);
+											if (resultData == 'success') {
+												$(thisElement).parent().hide(700);
+												swal("Deleted!", "Your imaginary file has been deleted.", "success");
+											} else {
+												alert("Something went wrong")
+											}
+											// alert("Save Complete")
+										}
+									});
+									swal("Deleted!", "productImage Deleted Succesfully.", "success");
+
+								} else {
+									swal("Cancelled", "productImage Not Deleted)", "error");
+								}
+							});
+							return false;
+						});
+
+					},
+						$.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert;
+
+					$.SweetAlert.init();
+				});
+
+			});
+		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script>
+		<script type="text/javascript">
+
+			bkLib.onDomLoaded(function () { nicEditors.allTextAreas() });
+			// bkLib.onDomLoaded(function () { nicEditors.allTextAreas() });
+			// $(document).ready(function () {
+			// 	$('#submit').click(function () {
+			// 		var edit_des = nicEditors.find('#product_description').text();
+			// 		// var edit_content = $('#formdata').find('.nicEdit-main').text();
+			// 		// var new_des = $('#copyText').prop('value', edit_content);
+			// 		// console.log(edit_content);
+			// 		// alert(new_des);
+
+			// 	});
+			// });
+		</script>
+
+		{% endblock %}

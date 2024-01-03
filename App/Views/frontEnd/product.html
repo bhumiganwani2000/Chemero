@@ -1,0 +1,191 @@
+{% extends "frontEnd/partitions/layout.html" %}
+{% block body %}
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="page-title-inner">
+                <div class="float-left">
+                    <h1 class="page-title">Product</h1>
+                </div>
+                <div class="float-right">
+                    <div id="breadcrumb-menu" class="breadcrumb-menu">
+                        <a href="javascript:void(0)">Home</a>
+                        <span class="current">Product</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ptb-50">
+        <div class="container">
+            <h2 class="section-title-border">{{singleProductData.product_name}}</h2>
+            <div class="row">
+                <div class="col-lg-8 col-sm-12 col-md-12">
+                    <div class="space-detail dot-border pt-0">
+                        <div class="owl-carousel owl-theme studies-details">
+                        {% for image in singleProductData.product_image %}
+							{% if image.is_deleted == "0" %}
+                            <div class="item">
+                                <img src="{{image.path}}"  class="w-100">
+                            </div>
+							{% endif %}
+                        {% endfor %} 
+                        </div>
+                   
+                    </div>
+                  <p class="nicEdit-main" id="pdescriptiontag" value="">{{singleProductData.product_description | safe}}</p>
+                    
+                    <div class="space-detail dot-border">
+                        <div class="row">
+                            <div class="col-lg-7 col-sm-12 col-xs-12">
+                                <h2 class="section-title-border h4-title">Application and Duties</h2>
+                                <p>{{singleProductData.application | safe}}</p>
+                            {% for duty in singleProductData.duties %}
+                                <ul class="list-item-desc">
+                                    <li><i class="fas fa-check mr-3"></i> {{duty.duties_des}}
+                                    </li>                                  
+                                </ul>
+                            {% endfor %}
+                            </div>
+
+                            <div class="col-lg-5 col-sm-12 col-xs-12">
+                                <div>
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-detail dot-border">
+                        <h2 class="section-title-border h4-title">Technical Aspects</h2>
+
+                        <div class="accordion" id="accordionExample">
+                            {% set i=0 %}
+                            {% for workProcessData in singleProductData.workProcess %}
+                            {% set i=i+1 %}
+                            <div class="card">
+                                {% if (workProcessData.heading == heading) %}
+                                <div class="card-header" id="head{{i}}">
+                                    <h2 class="mb-0">
+                                        <button type="button" class="btn btn-link" data-toggle="collapse" data-temp="workdes{{i}}"
+                                            data-target="#{{workProcessData.heading}}"><i class="fa fa-plus mr-3"></i>{{workProcessData.heading}}</button>
+                                    </h2>
+                                </div>
+                                {% else %}
+                                <div class="card-header" id="head{{i}}">
+                                    <h2 class="mb-0">
+                                        <button type="button" class="btn btn-link" data-toggle="collapse" data-temp="workdes{{i}}"
+                                            data-target="#{{workProcessData.heading}}"><i class="fa fa-plus mr-3"></i>{{workProcessData.heading}}</button>
+                                    </h2>
+                                </div>
+                                {% endif %}
+                                <!-- body -->
+                                {% if (workProcessData.heading == heading) %}
+                                <div id="{{workProcessData.heading}}" class="collapse show" aria-labelledby="head{{i}}"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="workdes{{i}}">{{workProcessData.description  | safe}}</p>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div id="{{workProcessData.heading}}" class="collapse show" aria-labelledby="head{{i}}"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="workdes{{i}}">{{workProcessData.description  | safe}}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+
+                            {%if(singleProductData.product_pdf[0] != null) %}
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h2 class="mb-0">
+                                        <button type="button" class="btn btn-link collapsed" data-toggle="collapse"
+                                            data-target="#collapseTwo"><i class="fa fa-plus mr-3"> </i>MOC's and
+                                            Limitations</button>
+                                    </h2>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p>Most commonly, individuals seek the help of a financial advisor for
+                                            retirement planning. But they can do much more than that. You can get help
+                                            with college savings, work on household finances and even get out of debt
+                                            with the help of a financial advisor.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}                            
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4 col-sm-12 col-md-12">
+                    <div class="right-widget-area">
+                        <div class="widget">
+                            <h3 class="widget-title">Our Products</h3>
+                            {% for productCategory in productCategoryData %}
+                                {% for product in productData %}
+                                {% if (productCategory._id == product.product_id)%}
+                                {% if(productCategory.productCategoryName == singleProductCategoryData)%}
+                                <ul class="menu-services-menu">
+                                    <li><a href="/productDetails/{{product._id}}">{{product.product_name}} </a></li>                                   
+                                </ul>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                               
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <div class="help-form h-100">
+                                <h2 style="font-size: 23px;color: #ffffff;line-height: 35px; font-weight: 600;">DO YOU
+                                    NEED ANY HELP?</h2>
+                                <p class="text-white mb-4">My job is to help professionals to achieve their industrial
+                                    goals whilst having adequate protection along the way.</p>
+                                <div class="feature-box-btn text-left mt-4">
+                                    <a class="btn default contact-btn" href="javascript:void(0)">CONTACT NOW</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="owl-carousel owl-theme slide-owl">
+                            {% for data in ourTestimonialsData %}                         
+                                <div class="item">
+                                    <div class="testimonial-inner rounded">
+                                        <div class="testimonial-excerpt">
+                                            <p>{{data.testimonial}}</p>
+                                        </div>
+                                        <div class="testimonial-thumb">
+                                            <img src="{{data. image}}" alt="" class="rounded-circle">
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <p><a href="javascript:void(0)" class="client-name">{{data.name}}</a></p>
+                                            <span>{{data.designation}}</span>, <a href="javascript:void(0)">{{data.company_name}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>                                
+                        <div class="widget">
+                            <div class="pdf-btn">
+                                <a class="" href="/download"><i class="far fa-file-pdf mr-3"></i>COMPANY PRESENTATION</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
+
+    {% block Jscript %}
+   
+    {% endblock %}

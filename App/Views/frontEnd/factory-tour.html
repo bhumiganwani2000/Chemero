@@ -1,0 +1,72 @@
+{% extends "frontEnd/partitions/layout.html" %}
+{% block body %}
+<section class="breadcrumb">
+    <div class="container">
+        <div class="page-title-inner">
+            <div class="float-left">
+                <h1 class="page-title">Factory Tour</h1>
+            </div>
+            <div class="float-right">
+                <div id="breadcrumb-menu" class="breadcrumb-menu">
+                    <a href="javascript:void(0)">Home</a>
+                    <span class="current">Factory Tour</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% set i = 0 %}
+{% for data in FactoryTourData %}
+{% set i = i+1 %}
+<section class="ptb-50">
+    <div class="container">
+        <div class="row">
+            {% if i % 2 == 0 %}
+            <div class="col-lg-6 col-sm-12 col-md-12">
+                <h2 class="section-title-border"><span>{{data.title}}</span></h2>
+                <p>{{data.description}}</p>                
+            </div>
+            <div class="col-lg-6 col-sm-12 col-md-12 ">
+                <figure>
+                    <img src="{{data.image}}" alt="" style="width:100%;">
+                </figure>
+            </div>
+            {% else %}
+            <div class="col-lg-6 col-sm-12 col-md-12  ">
+                <figure>
+                    <img src="{{data.image}}" alt="" style="width:100%;">
+                </figure>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-md-12 ">
+                <h2 class="section-title-border"><span>{{data.title}}</span></h2>
+                <p>{{data.description}}</p>
+            </div>
+        {% endif %}
+           
+        </div>
+    </div>
+    
+</section>
+
+{% endfor %}
+
+<section>
+{% for data in FactoryTourData %}
+    {% if data.type == "video" %}
+    <div className='factorytour__videos'>
+        <video autoPlay='autoplay' muted='muted' loop='loop' width="100%">
+            <source src="{{data.image}}" controls />            
+        </video>
+    </div>
+    {% endif %}
+{% endfor %}
+</section>
+
+
+
+
+{% endblock %}
+
+{% block Jscript %}
+
+{% endblock %}

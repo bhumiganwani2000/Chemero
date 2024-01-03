@@ -1,0 +1,177 @@
+{% extends "partition/layout.html" %}
+
+
+{% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+	<div class="container-fluid">
+
+		<!-- Title -->
+		<section class="content-header">
+			<h1>Product table</h1>
+			<!-- Breadcrumb -->
+			<ol class="breadcrumb">
+				<li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li class="active">Course</li>
+			</ol>
+			<!-- /Breadcrumb -->
+		</section>
+		<!-- /Title -->
+		{% include "partition/notification.html" %}
+		<!-- Row -->
+		<section class="content">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default card-view">
+						<div class="panel-heading">
+							<div class="pull-left">
+								<!-- <h6 class="panel-title txt-dark">Settings</h6> -->
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-wrapper collapse in">
+							<div class="panel-body">
+								<div class="table-wrap">
+									<div class="table-responsive">
+										{% if course %}
+										<form method="POST" action="/backend/courses/courseEdit/{{course.id}}" class="form-horizontal" enctype='multipart/form-data'>
+											{% else %}
+											<form method="POST" action="/backend/courses/addCourse" class="form-horizontal" enctype='multipart/form-data'>
+												{% endif %}
+												<table border="0" class="table display  pb-30">
+													<div class="col-sm-12">
+														<div class="panel-wrapper collapse in">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="name">Course Name:</label>
+																	<div class="col-sm-6">
+																		<input type="text" class="form-control" id="name" placeholder="Enter Course Name" required name="name" value="{{course.name}}" >
+																	</div>
+																</div>
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="collegeName">College Name:</label>
+																	<div class="col-sm-6">
+																		<input type="text" class="form-control" id="collegeName" placeholder="Enter College Name" required name="collegeName" value="{{course.collegeName}}" >
+																	</div>
+																</div>
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="name">Image:</label>
+																	<div class="col-sm-6">
+																		{% if course %}
+																		<input type="file" class="form-control" id="courseImage" placeholder="Enter Course Name" name="courseImage" value="" >
+																		<br><img class="img-circle" src="{{course.image}}" height="200px" width="200px" alt="">
+																		{% else %}
+																		<input type="file" class="form-control" id="courseImage" placeholder="Enter Course Name" required name="courseImage" value="" >
+
+																		{% endif %}
+																	</div>
+																</div>
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="name">Fees:</label>
+																	<div class="col-sm-6">
+																		<input type="text" class="form-control" id="fees" placeholder="Enter Course Name" required name="fees" value="{{course.fees}}" >
+																	</div>
+																</div>
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="">Course Duration:</label>
+																	<div class="col-sm-6">
+																		<div class="row">
+											                	<div class="col-xs-6">
+																				<div class="input-group">
+																					<input type="number" class="form-control" placeholder="Course Year" required name="years" id="years" value="{{course.durationYears}}"><span class="input-group-addon">Years</span>
+																				</div>
+											                	</div>
+
+											                <div class="col-xs-6">
+																				<div class="input-group">
+																					<input type="text" class="form-control" id="months" placeholder="Course Month" required name="months" value="{{course.durationMonths}}"><span class="input-group-addon">Months</span>
+																				</div>
+											                </div>
+											              </div>
+																	</div>
+																</div>
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="collegeNameText">College Text:</label>
+																	<div class="col-sm-6">
+																		<textarea class="form-control" name="collegeNameText" id="collegeNameText" rows="8" cols="60" style="resize:none">{{course.collegeNameText}}</textarea>
+																	</div>
+																</div>
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="collegeAbout">About the College:</label>
+																	<div class="col-sm-6">
+																		<textarea class="form-control" name="collegeAbout" id="collegeAbout" rows="8" cols="60" style="resize:none">{{course.collegeAbout}}</textarea>
+
+																	</div>
+																</div>
+
+
+															</div>
+														</div>
+													</div>
+													<tr>
+														<td colspan="2">
+															<input type="submit" class="btn btn-success btn-flat" value="submit">
+															<a href="/backend/courses" class="btn btn-danger btn-flat">Cancel</a>
+														</td>
+													</tr>
+												</table>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+					<!-- /Row -->
+			</div>
+	 	</section>
+
+{% endblock %}
+
+{% block Jscript %}
+<script>
+	$(document).ready( function () {
+		var host = window.location.origin;
+
+		$('#minStacks').focusout(function(){
+			// alert($(this).val());
+			let minStacks = $(this).val();
+			if (minStacks != '' ) {
+				$('#maxStack').val(minStacks*2)
+				$('#flag').val(minStacks+'/'+(minStacks*2))
+			}
+
+
+
+
+		});
+
+		$('#minStacks').keydown(function(e)
+        {
+            var key = e.charCode || e.keyCode || 0;
+            // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
+            // home, end, period, and numpad decimal
+            return (
+                key == 8 ||
+                key == 9 ||
+                key == 13 ||
+                key == 46 ||
+                key == 110 ||
+                key == 190 ||
+                (key >= 35 && key <= 40) ||
+                (key >= 48 && key <= 57) ||
+                (key >= 96 && key <= 105));
+        });
+
+	} );
+</script>
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends "frontEnd/partitions/layout.html" %}
+{% block body %}
+
+<section class="breadcrumb">
+    <div class="container">
+        <div class="page-title-inner">
+            <div class="float-left">
+                <h1 class="page-title">Application</h1>
+            </div>
+            <div class="float-right">
+                <div id="breadcrumb-menu" class="breadcrumb-menu">
+                    <a href="javascript:void(0)">Home</a>
+                    <span class="current">Application</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ptb-50">
+    <div class="container">
+        <ul class="nav nav-tabs text-center portfolio" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#All" role="tab" aria-controls="home"
+                    aria-selected="true">All</a>
+            </li>
+            {% for appCategorydata in categoryData %}
+            <li class="nav-item">
+                <a class="nav-link openbox" id="profile-tab" data-toggle="tab" href="#{{appCategorydata._id}}" role="tab"
+                    aria-controls="profile" aria-selected="false">{{appCategorydata.categoryName}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="tab-content mt-5 lightbox-gallery" id="myTabContent">
+            <div class="tab-pane fade show active " id="All" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    {% for data in applicationData%}
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 p-0">
+                        <article class="photos">
+                            <div class="portfolio-wrap mb-0">
+                                <div class="portfolio-img portfolio-overlay-wrap">
+                                    <div class="portfolio-overlay overlay-center">
+                                        <div class="portfolio-title">
+                                            <h3>
+                                                <div>{{data.name}}</div>
+                                                <a href="#" target="_blank">{{data.name}}</a>
+                                            </h3>
+                                        </div>
+                                        <div class="portfolio-categories">
+                                            <span>{{data.description}}</span>
+                                        </div>
+                                        <input id="popupimg" class="myImg" type="hidden" value="{{data.image}}">
+                                        <div class="portfolio-icons">
+                                            <!-- <a href="{{data.image}}" data-lightbox="photos"
+                                                class="image-gallery-link zoom-icon"> -->
+                                                <i class="iconplus fas fa-plus" data="all" id="myImg" data-toggle="modal" data-target="#{{data._id}}"></i>
+                                            <!-- </a> -->
+                                            <!-- <a href="/application-details/{{data._id}}" class="link-icon"> -->
+                                                <!-- <i class="iconlink fas fa-link"></i> -->
+                                            <!-- </a> -->
+                                        </div>
+                                    </div>
+                                    <a href="#" class="image-gallery-link">
+                                        <img width="440" height="260" src="{{data.image[0].path}}" class="img-fluid" alt="">
+                                    </a>
+                                </div>
+
+
+
+
+                                <div class="modal fade bd-example-modal-lg" id="{{data._id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body ">
+                                        <section class="{{data._id}}">
+                                          <div class="row">
+                                            <div class="col-md-2">
+                                              <i id="Prev" class="bi bi-arrow-left prevSlide" aria-hidden="true" modIndex="{{data._id}}"><b> < </b></i>
+                                            </div>
+                                            <div class="col-md-8">
+                                              {% for imageData in data.image%}
+                                                {% if loop.index == "1" %}
+                                                <img class="sliderPicActive" width="100%" src="{{imageData.path}}" modelIndex="{{data._id}}">
+                                                {% else %}
+                                                <img class="sliderPic" width="100%" style="display:none" src="{{imageData.path}}" modelIndex="{{data._id}}">
+                                                {% endif %}
+                                              <!-- <img  src="{{imageData.path}}" class="img-fluid" alt=""> -->
+                                              {% endfor %}
+                                            </div>
+                                            <div class="col-md-2">
+                                              <i id="Next" class="fa fa-caret-square-o-right nextSlide" modIndex="{{data._id}}" aria-hidden="true"><b> > </b></i>
+                                            </div>
+                                          </div>
+                                        </section>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
+
+                                <!-- <div class="modal fade bd-example-modal-lg" id="{{data._id}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+
+                                    </div>
+                                  </div>
+                                </div> -->
+
+
+
+
+
+
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            {% for projectCategory in categoryData%}
+            <div class="tab-pane fade openbox1" id="{{projectCategory._id}}" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row">
+                    {% for project in projectCategory.application %}
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <article class="photos">
+                            <div class="portfolio-wrap">
+                                <div class="portfolio-img portfolio-overlay-wrap">
+                                    <div class="portfolio-overlay overlay-center">
+                                        <div class="portfolio-title">
+                                            <h3>
+                                                <a href="#"
+                                                target="_blank">{{project.name}}</a>
+                                            </h3>
+                                        </div>
+                                        <div class="portfolio-categories">
+                                            <span>{{project.description}}</span>
+                                        </div>
+                                        <input id="popupimg1" class="myImgs" type="hidden"
+                                            value="{{project.image}}">
+                                        <input id="popuptxt" class="myTxt" type="hidden"
+                                            value="">
+                                        <div class="portfolio-icons">
+                                            <!-- <a href="{{project.image}}" data-lightbox="photos"
+                                                class="image-gallery-link zoom-icon"> -->
+                                                <i class="iconplus fas fa-plus" id="myImgs"></i>
+                                            <!-- </a> -->
+                                            <!-- <a href="/application-details/{{project._id}}" class="link-icon"> -->
+                                                <!-- <i class="iconlink fas fa-link"></i> -->
+                                            <!-- </a> -->
+                                        </div>
+                                    </div>
+                                    <a href="#" class="image-gallery-link">
+                                        <img width="440" height="260" src="{{project.image}}"
+                                            class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div id="myModal1" class="modal1">
+                                    <!-- The Close Button -->
+                                    <span class="close1">&times;</span>
+                                    <!-- Modal Content (The Image) -->
+                                    <img class="modal-content1" id="img02" src="">
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block Jscript %}
+<script>
+  $(".nextSlide").click(function(){
+    let modelIndex = $(this).attr('modIndex');
+    $('.sliderPicActive[modelIndex="'+modelIndex+'"]').hide();
+    let nextElements = $(".sliderPicActive[modelIndex='"+modelIndex+"']").next('.sliderPic');
+    $(".sliderPicActive[modelIndex='"+modelIndex+"']").attr('class', 'sliderPic')
+    if (nextElements[0] == undefined) {
+      $("[modelIndex="+modelIndex+"]:first").attr('class', 'sliderPicActive')
+      $(".sliderPicActive[modelIndex='"+modelIndex+"']").attr('style', '')
+    }else {
+      $(nextElements[0]).attr('class', 'sliderPicActive')
+      $(nextElements[0]).attr('style', '')
+    }
+  });
+
+$(".prevSlide").click(function(){
+  let modelIndex = $(this).attr('modIndex');
+  $('.sliderPicActive[modelIndex="'+modelIndex+'"]').hide();
+  let nextElements = $('.sliderPicActive[modelIndex="'+modelIndex+'"]').prev('.sliderPic');
+  $('.sliderPicActive[modelIndex="'+modelIndex+'"]').attr('class', 'sliderPic')
+  if (nextElements[0] == undefined) {
+    $("[modelIndex="+modelIndex+"]:last").attr('class', 'sliderPicActive')
+    $('.sliderPicActive[modelIndex="'+modelIndex+'"]').attr('style', '')
+  }else {
+    $(nextElements[0]).attr('class', 'sliderPicActive')
+    $(nextElements[0]).attr('style', '')
+  }
+
+});
+
+
+
+    // Get the modal
+    // var modal = document.getElementById("myModal");
+    // var modal1 = document.getElementById("myModal1");
+    // var modalImg = document.getElementById("img01");
+    // var modalImg1 = document.getElementById("img02");
+    // var uniqueimg = document.getElementById("myImg");
+
+        // $(document).ready(function () {
+        //
+        // });
+    // Get the <span> element that closes the modal
+        // $(".close").click(function () {
+        //     $('#myModal').css({'display':'none'})
+        // });
+        // $(".close1").click(function () {
+        //     $('.modal1').css({'display':'none'})
+        // });
+        // get category name with is clicked
+        //  $(".openbox").click(function (){
+        //    var modalval = $(this).text();
+        //    $('.myTxt1').val(modalval);
+        //    var myclass = $('.myTxt1').val();
+        //    $('#myModal1').attr('class',myclass);
+        // });
+
+
+
+   </script>
+{% endblock %}

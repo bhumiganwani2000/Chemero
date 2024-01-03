@@ -1,0 +1,186 @@
+{% extends "frontEnd/partitions/layout.html" %}
+{% block body %}
+<section class="breadcrumb">
+    <div class="container">
+        <div class="page-title-inner">
+            <div class="float-left">
+                <h1 class="page-title">Projects</h1>
+            </div>
+            <div class="float-right">
+                <div id="breadcrumb-menu" class="breadcrumb-menu">
+                    <a href="javascript:void(0)">Home</a>
+                    <span class="current">Projects</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ptb-50">
+    <div class="container">
+        <ul class="nav nav-tabs text-center portfolio" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#All" role="tab"
+                    aria-controls="home" aria-selected="true">All</a>
+            </li>
+            {% for projectCategory in projectCategoryData %}
+            <li class="nav-item">
+                <a class="nav-link openbox" id="profile-tab" data-toggle="tab" href="#{{projectCategory._id}}" role="tab"
+                    aria-controls="profile" aria-selected="false">{{projectCategory.projectCategoryName}}</a>
+            </li>
+            {% endfor %}      
+            
+        </ul>
+        <div class="tab-content mt-5 lightbox-gallery" id="myTabContent">
+            <div class="tab-pane fade show active " id="All" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    {% set i = 0 %}
+                    {% for project in projectData%}
+                    {% set i = i+1 %}
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <article class="photos">
+                            <div class="portfolio-wrap">
+                                <div class="portfolio-img portfolio-overlay-wrap">
+                                    <div class="portfolio-overlay overlay-center">
+                                        <div class="portfolio-title">
+                                            <h3>
+                                                <a href="/details/{{project._id}}"
+                                                target="_blank">{{project.project_name}}</a>                                                    
+                                            </h3>
+                                        </div>
+                                        <div class="portfolio-categories">
+                                            <span>{{project.project_description}}</span>
+                                        </div>
+                                        <input id="popupimg{{i}}" class="myImg{{i}}" type="hidden"
+                                        value="{{project.project_image}}">
+                                        <div class="portfolio-icons">
+                                            <!-- <a href="{{project.project_image}}" data-lightbox="photos"
+                                                class="image-gallery-link zoom-icon"> -->
+                                                <i class="iconplus fas fa-plus" data="all" id="myImg{{i}}"></i>
+                                            <!-- </a> -->
+                                            <a href="/details/{{project._id}}" class="link-icon">
+                                                <i class="iconlink fas fa-link"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="image-gallery-link">
+                                        <img width="440" height="260" src="{{project.project_image}}"
+                                            class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div id="myModal" class="modal">
+                                    <!-- The Close Button -->
+                                    <span class="close">&times;</span>
+                                    <!-- Modal Content (The Image) -->
+                                    <img class="modal-content" id="img01">
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                   
+                    
+                </div>
+            </div>
+            {% set i = 0 %}
+            {% for projectCategory in projectCategoryData%}
+            <div class="tab-pane fade" id="{{projectCategory._id}}" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row">
+                    {% for project in projectCategory.project %}
+                    {% set i = i+1 %}
+
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <article class="photos">
+                            <div class="portfolio-wrap">
+                                <div class="portfolio-img portfolio-overlay-wrap">
+                                    <div class="portfolio-overlay overlay-center">
+                                        <div class="portfolio-title">
+                                            <h3>
+                                                <a href="/details/{{project._id}}"
+                                                target="_blank">{{project.project_name}}</a>
+                                            </h3>
+                                        </div>
+                                        <div class="portfolio-categories">
+                                            <span>{{project.project_description}}</span>
+                                        </div>
+                                        <input id="popupimg1{{i}}" class="myImgs{{i}}" type="hidden"
+                                            value="{{project.project_image}}">
+                                        <input id="popuptxt{{i}}" class="myTxt{{i}}" type="hidden"
+                                            value="">
+                                        <div class="portfolio-icons">
+                                            <!-- <a href="{{project.project_image}}" data-lightbox="photos"
+                                                class="image-gallery-link zoom-icon"> -->
+                                                <i class="iconplus fas fa-plus" id="myImgs{{i}}"></i>
+                                            <!-- </a> -->
+                                            <a href="/details/{{project._id}}" class="link-icon">
+                                                <i class="iconlink fas fa-link"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="image-gallery-link">
+                                        <img width="440" height="260" src="{{project.project_image}}"
+                                            class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div id="myModal1" class="modal1">
+                                    <!-- The Close Button -->
+                                    <span class="close1">&times;</span>
+                                    <!-- Modal Content (The Image) -->
+                                    <img class="modal-content1" id="img02" src="">                
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}                    
+                                          
+                   </div>
+            </div>
+            {% endfor %}        
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block Jscript %}
+<script>
+    // Get the modal  
+    var modal = document.getElementById("myModal");
+    var modal1 = document.getElementById("myModal1");
+    var modalImg = document.getElementById("img01");
+    var modalImg1 = document.getElementById("img02");
+    var uniqueimg = document.getElementById("myImg");   
+
+    $(document).ready(function () {
+        $(".fa-plus").click(function () {
+            var temp = $(this).prop('id');
+            var checkvar =  $(this).attr('data');
+            // alert(checkvar)
+            if(checkvar == 'all'){
+                modalImg.src = $('.' + temp).val();
+                modal.style.display = "block";
+            }else{
+                let srcval = $('.' + temp).val();
+                $('.modal-content1').attr('src',srcval);
+                $('.modal1').css({'display':'block'});               
+                // alert(modalImg1.src);
+            }            
+        });
+    });
+    // Get the <span> element that closes the modal
+        $(".close").click(function () {
+            $('#myModal').css({'display':'none'})
+        });
+        $(".close1").click(function () {
+            $('.modal1').css({'display':'none'})
+        });
+        // get category name with is clicked
+        //  $(".openbox").click(function (){ 
+        //    var modalval = $(this).text();  
+        //    alert(modalval)     
+        //    $('.myTxt1').val(modalval);
+        //    var myclass = $('.myTxt1').val();
+        //    $('#myModal1').attr('class',myclass);
+        // });
+
+   </script>
+
+{% endblock %}

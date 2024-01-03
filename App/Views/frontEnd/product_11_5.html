@@ -1,0 +1,270 @@
+{% extends "frontEnd/partitions/layout.html" %}
+{% block body %}
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="page-title-inner">
+                <div class="float-left">
+                    <h1 class="page-title">Product</h1>
+                </div>
+                <div class="float-right">
+                    <div id="breadcrumb-menu" class="breadcrumb-menu">
+                        <a href="javascript:void(0)">Home</a>
+                        <span class="current">Product</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ptb-50">
+        <div class="container">
+            <h2 class="section-title-border">{{singleProductData.product_name}}</h2>
+            <div class="row">
+                <div class="col-lg-8 col-sm-12 col-md-12">
+                    <div class="space-detail dot-border pt-0 slideshow-container__home">
+                        {% for image in singleProductData.product_image %}
+                        <div class="mb-4  mySlidesr__home">
+                            <img src="{{image.path}}" class="w-100">
+                        </div>
+                        <a class="prev__home" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next__home" onclick="plusSlides(1)">&#10095;</a>
+                        {% endfor %}
+                        <div class="invisible" style="text-align:center">
+                            <span class="dot" onclick="currentSlide(1)"></span>
+                            <span class="dot" onclick="currentSlide(2)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                          </div>
+
+                        <p class="nicEdit-main" id="pdescriptiontag" value="">{{singleProductData.product_description   | safe }}</p>
+                    </div>
+
+                    <div class="space-detail dot-border">
+                        <div class="row">
+                            <div class="col-lg-7 col-sm-12 col-xs-12">
+                                <h2 class="section-title-border h4-title">Application and Duties</h2>
+                                <p>We are working with clients, from individual investors to large financial
+                                    institutions, to develop advanced portfolio management strategies to help them
+                                    achieve specific goals.</p>
+                                <ul class="list-item-desc">
+                                    <li><i class="fas fa-check mr-3"></i> Help clients navigate today’s evolving markets
+                                    </li>
+                                    <li><i class="fas fa-check mr-3"></i> Research market ideas and build investment
+                                        portfolios</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-5 col-sm-12 col-xs-12">
+                                <div>
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-detail dot-border">                        
+                        <h2 class="section-title-border h4-title">Technical Aspects</h2>
+                        
+                        <div class="accordion" id="accordionExample">                     
+
+                            {% if(workProcessData.heading != "")%}
+                            <div class="card">
+                                <div class="card-header" id="{{workProcessData.heading[0]}}">
+                                    <h2 class="mb-0">
+                                        <!-- <button type="button" class="btn btn-link" data-toggle="collapse"
+                                            data-target="#{{workProcessData.description[1]}}"><i class="fa fa-plus mr-3"></i>{{workProcessData.heading}}</button> -->
+                                            <ul class="nav nav-tabs text-center portfolio" id="myTab" role="tablist">
+                                               {% set i=0 %}
+                                                {% for workProcessData in singleProductData.workProcess %}  
+                                               {% set i=i+1 %}
+                                                
+                                                <li class="nav-item">
+                                                    {% if (workProcessData.heading == heading) %}
+                                                    <a class="nav-link showbox1 active" id="profile-tab"  data-temp="workdes{{i}}" data-toggle="tab" href="#{{workProcessData.description[1]}}" role="tab"
+                                                        aria-controls="profile" aria-selected="false">{{workProcessData.heading}}</a>
+                                                    {% else %}
+                                                     <input type="hidden" id ="des" value="{{workProcessData.description}}">
+
+                                                    <a class="showbox1 nav-link" id="profile-tab" data-temp="workdes{{i}}" data-toggle="tab" href="#{{workProcessData.description[1]}}" role="tab"
+                                                    aria-controls="profile" aria-selected="false">{{workProcessData.heading}}</a>
+                                                    {% endif%}
+                                                    </li> 
+                                                {% endfor %}   
+                                            </ul>
+                                    </h2>                                    
+                                </div>
+                                {% set i = 0 %}
+                                {% for workProcessData in singleProductData.workProcess %}   
+                                {% set i = i +1 %}                              
+                                {% if (workProcessData.heading == heading) %}
+                                <div id="{{workProcessData.description[1]}}" class="openbox" aria-labelledby="{{workProcessData.heading[0]}}"
+                                    data-parent="#accordionExample">                                    
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead class="table-dark"></thead>
+                                                <thead>
+                                                    <tr>
+                                                      <th class="tabhead"scope="col">{{workProcessData.heading}}</th>                                                     
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr style="display: none;">                                                      
+                                                        <td class="workdes{{i}}">{{workProcessData.description  | safe}}</td>                                                    
+                                                      </tr>
+                                                  <tr>                                                      
+                                                    <td class="tabdata">{{workProcessData.description  | safe}}</td>                                                    
+                                                  </tr>
+                                            </tbody>
+                                          </table>
+                                    </div>                                   
+                                </div>
+                                {% else%}
+                                <div style="display: none; "id="{{workProcessData.description[1]}}" class="collapse show" aria-labelledby="{{workProcessData.heading[0]}}"
+                                data-parent="#accordionExample">                                    
+                                <div class="card-body">
+                                    <p>{{workProcessData.description  | safe}}</p>
+                                    <table class="table">
+                                        <thead class="table-dark"></thead>
+                                            <thead>
+                                                <tr>
+                                                  <th scope="col">{{workProcessData.heading}}</th>                                                     
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                              <tr id="PO1">
+                                                <td class="workdes{{i}}">{{workProcessData.description  | safe}}</td>                                                    
+                                              </tr>
+                                              <tr>
+                                        </tbody>
+                                      </table>
+                                </div>                                   
+                            </div>
+                             {% endif %}
+                                {% endfor %}
+                               
+                            </div>                             
+                             {% endif %}
+                        
+                            {%if(singleProductData.product_pdf[0] != null) %}
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h2 class="mb-0">
+                                        <button type="button" class="btn btn-link collapsed" data-toggle="collapse"
+                                            data-target="#collapseTwo"><i class="fa fa-plus mr-3"> </i>MOC's and
+                                            Limitations</button>
+                                    </h2>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p>Most commonly, individuals seek the help of a financial advisor for
+                                            retirement planning. But they can do much more than that. You can get help
+                                            with college savings, work on household finances and even get out of debt
+                                            with the help of a financial advisor.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-md-12">
+                    <div class="right-widget-area">
+                        <div class="widget">
+                            <h3 class="widget-title">Our Products</h3>
+                            {% for productCategory in productCategoryData %}
+                                {% for product in productData %}
+                                {% if (productCategory._id == product.product_id)%}
+                                {% if(productCategory.productCategoryName == singleProductCategoryData)%}
+                                <ul class="menu-services-menu">
+                                    <li><a href="/productDetails/{{product._id}}">{{product.product_name}} </a></li>                                   
+                                </ul>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                               
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <div class="help-form h-100">
+                                <h2 style="font-size: 23px;color: #ffffff;line-height: 35px; font-weight: 600;">DO YOU
+                                    NEED ANY HELP?</h2>
+                                <p class="text-white mb-4">My job is to help professionals to achieve their industrial
+                                    goals whilst having adequate protection along the way.</p>
+                                <div class="feature-box-btn text-left mt-4">
+                                    <a class="btn default contact-btn" href="javascript:void(0)">CONTACT NOW</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="owl-carousel owl-theme slide-owl">
+                            {% for data in ourTestimonialsData %}                         
+                                <div class="item">
+                                    <div class="testimonial-inner rounded">
+                                        <div class="testimonial-excerpt">
+                                            <p>{{data.testimonial}}</p>
+                                        </div>
+                                        <div class="testimonial-thumb">
+                                            <img src="{{data. image}}" alt="" class="rounded-circle">
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <p><a href="javascript:void(0)" class="client-name">{{data.name}}</a></p>
+                                            <span>{{data.designation}}</span>, <a href="javascript:void(0)">{{data.company_name}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>                                
+                        <div class="widget">
+                            <div class="pdf-btn">
+                                <a class="" href="/download"><i class="far fa-file-pdf mr-3"></i>COMPANY PRESENTATION</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
+
+    {% block Jscript %}
+    <script>
+
+        $(document).ready(function () {
+            $(".showbox1").click(function () {  
+                var temp =$(this).html();    
+                var for_des = $(this).attr('data-temp');          
+                // alert(for_des)              
+                var new_workdata =$('.'+for_des).text();	
+                // alert(new_workdata)			        
+                $('.tabhead').text(temp); 
+                // alert(temp) 
+                $('.tabdata').html(`<span class="for_dec">`+new_workdata+`</span>`);  
+               
+            });
+        });
+        let slideIndex = 0;
+        showSlides();
+        function showSlides() {
+          let i;
+          let slides = document.getElementsByClassName("mySlidesr__home");
+          let dots = document.getElementsByClassName("dot");
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+          }
+          slideIndex++;
+          if (slideIndex > slides.length) {slideIndex = 1}    
+          for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";  
+          dots[slideIndex-1].className += " active";
+          setTimeout(showSlides, 2000); // Change image every 2 seconds
+        }
+ 
+
+        </script>
+
+    
+
+    {% endblock %}

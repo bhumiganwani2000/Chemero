@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chemtech-AlfaPumps</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+  .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border-radius: 0
+  }
+
+  .card .card-body {
+      padding: 1.25rem 1.75rem
+  }
+
+  .card-body {
+      flex: 1 1 auto;
+      padding: 1.25rem
+  }
+
+  .card .card-title {
+      color: #000000;
+      margin-bottom: 0.625rem;
+      text-transform: capitalize;
+      font-size: 0.875rem;
+      font-weight: 500
+  }
+
+  .card .card-description {
+      margin-bottom: .875rem;
+      font-weight: 400;
+      color: #76838f
+  }
+
+  p {
+      font-size: 0.875rem;
+      margin-bottom: .5rem;
+      line-height: 1.5rem
+  }
+
+  label{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  label.check {
+    cursor: pointer;
+  }
+  label.check input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  label.check span {
+    padding: 7px 14px;
+      border: 2px solid #e5680b;
+      display: inline-block;
+      color: #e5680b;
+      border-radius: 3px;
+      text-transform: uppercase;
+  }
+  label.check input:checked + span {
+    border-color: #e5680b;
+      background-color: #e5680b;
+      color: #fff;
+  }
+
+  .form-horizontal .form-group {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  hr {
+    margin-bottom: 0px;
+  }
+  .alignRight{
+    position: absolute;
+    right: 10px;
+  }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <img src="APPL_Logo.png" height="200px" style="max-width:100%" alt="">
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+      <img src="chemtech-world-expo.png" height="200px" style="max-width:100%" alt="">
+    </div>
+    <br>
+  </div> -->
+  <div class="row" style="">
+    <div class="col-md-6 col-sm-6 col-xs-6 position-relative" style="height: 150px;">
+      <img src="APPL_Logo.png" style="max-width: 150px;position: absolute;width: 100%;top: 0;left: 0;right: 0;bottom: 0;margin: auto;">
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6 justify-content-center align-self-center" style="height: 150px;position: relative;">
+      <img src="chemtech-world-expo.png" style="max-height: 100px;position: absolute;width: auto;top: 0;left: 0;right: 0;bottom: 0;margin: auto;">
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+    <h2>Visitor Registration Form</h2>
+  </div>
+</div>
+  <br/>
+  <div class="row">
+    <!-- <div class="col-md-2"></div> -->
+    <div class="col-md-10">
+      <form class="form-horizontal">
+        <div class="card">
+            <div class="card-body text-center">
+
+              <label class="check">
+      				  <input class="userType" type="checkbox" id="EX.Buyer" name="userType[]" value="EX.Buyer">
+      				  <span>EX.Buyer</span>
+      				</label>
+      				<label class="check">
+      				  <input class="userType" type="checkbox" id="PO.Buyer" name="userType[]" value="PO.Buyer">
+      				  <span>PO.Buyer</span>
+      				</label>
+
+      				<label class="check">
+      				  <input class="userType" type="checkbox" id="ERC" name="userType[]" value="ERC">
+      				  <span>ERC</span>
+      				</label>
+
+      				<label class="check">
+      				  <input class="userType" type="checkbox" id="OEM" name="userType[]" value="OEM">
+      				  <span>OEM</span>
+      				</label>
+
+      				<label class="check">
+      				  <input class="userType" type="checkbox" id="Dealer" name="userType[]" value="Dealer">
+      				  <span>Dealer</span>
+      				</label>
+
+      				<label class="check">
+      				  <input class="userType" type="checkbox" id="Vendor" name="userType[]" value="Vendor">
+      				  <span>Vendor</span>
+      				</label>
+            </div>
+        </div>
+
+        <h3>Contact Person Details</h3>
+        <div class="contactPersonSegment">
+          <br>
+          <div class="form-group">
+            <label class="control-label col-sm-4" style="text-align: left;" for="contactPerson">Contact Person:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control contactPerson" id="contactPerson" required placeholder="Enter Contact Person Name" name="contactPerson">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" style="text-align: left;" for="mobile">Mobile No:</label>
+            <div class="col-sm-8">
+              <input type="number" maxlength="10" class="form-control mobile" id="mobile" placeholder="Enter Mobile No" name="mobile" required >
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" style="text-align: left;" for="email">Email:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control email" id="email" placeholder="Enter Email" name="email">
+            </div>
+          </div>
+        </div>
+        <a href="javascript:void(0)" class="addNewContact" title="Add New">Add New Contact Person</a>
+
+        <h3>Comapny Details </h3>
+        <div class="companySegment">
+          <br>
+          <div class="form-group">
+            <label class="control-label col-sm-4" style="text-align: left;" for="companyName">Company Name:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="companyName" required placeholder="Enter Contact Person Name" name="companyName">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" style="text-align: left;" for="unit">Unit:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="unit" placeholder="Enter Company's Unit" name="unit">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-4" style="text-align: left;" for="division">Division:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="division" placeholder="Enter Company's Division" name="division">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-4" style="text-align: left;" for="state">State:</label>
+            <div class="col-sm-8">
+              <select name="state" id="state" class="form-control">
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <h3>Interested Products</h3>
+        <div class="ProductSegment">
+          <br>
+          <div class="card">
+              <div class="card-body text-center">
+
+                <label class="check">
+        				  <input class="productData" type="checkbox" id="NK" name="product[]" value="NK">
+        				  <span>NK</span>
+        				</label>
+        				<label class="check">
+        				  <input class="productData" type="checkbox" id="NKP" name="product[]" value="NKP">
+        				  <span>NKP</span>
+        				</label>
+
+        				<label class="check">
+        				  <input class="productData" type="checkbox" id="ATEX" name="product[]" value="ATEX">
+        				  <span>ATEX</span>
+        				</label>
+
+        				<label class="check">
+        				  <input class="productData" type="checkbox" id="ECO" name="product[]" value="ECO">
+        				  <span>ECO</span>
+        				</label>
+
+        				<label class="check">
+        				  <input class="productData" type="checkbox" id="TNP" name="product[]" value="TNP">
+        				  <span>TNP</span>
+        				</label>
+
+        				<label class="check">
+        				  <input class="productData" type="checkbox" id="Other" name="product[]" value="Other">
+        				  <span>Other</span>
+        				</label><br><br>
+                <input type="text" name="otherProduct" id="otherProduct" value="" style="display: initial; width: 65%" class="form-control" placeholder="If Other then specify">
+
+              </div>
+          </div>
+
+
+        </div>
+
+        <h3>Application</h3>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <textarea name="application" class="form-control" id="application" rows="8" cols="80" style="resize: none"></textarea>
+          </div>
+        </div>
+        <br/>
+        <h3>Existing Problem</h3>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <textarea name="problem" class="form-control" id="problem" rows="8" cols="80" style="resize: none"></textarea>
+          </div>
+        </div>
+        <br/>
+        <h3>Projects</h3>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <textarea name="projects" class="form-control" id="projects" rows="8" cols="80" style="resize: none"></textarea>
+          </div>
+        </div>
+        <br/>
+        <h3>Action Taken</h3>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <textarea name="action" class="form-control" id="action" rows="8" cols="80" style="resize: none"></textarea>
+          </div>
+        </div>
+        <br>
+        <h3>Additional Docs</h3>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <input type="file" class="form-control" name="additionalDocs" id="additionalDocs"  multiple>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <!-- <button  class="btn btn-lg btn-success"> Submit </button> -->
+            <br><br>
+            <input id="submitAplication" type="button" class="btn  btn-lg btn-success" name="" value="Submit">
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <!-- <div class="col-md-2"></div> -->
+  </div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+  let contactPersonHtml = $('.contactPersonSegment').html();
+  $('.addNewContact').click(function() {
+    $('.contactPersonSegment').append('<div><hr/><i class="fa fa-close alignRight" title="Delete this section" ></i>'+contactPersonHtml+'</div>')
+  });
+
+  $('body').on('click', '.alignRight', function(){
+    if (confirm("Delete the Section")) {
+      $(this).parent().remove();
+    } else {
+    }
+  });
+
+  $('#submitAplication').click(function() {
+    // alert();
+    var selectedUserType  = [];
+    var selectedProducts  = [];
+    var contactPerson     = [];
+    var mobile            = [];
+    var email             = [];
+
+    var form = new FormData();
+    form.append("companyName", $('#companyName').val());
+    form.append("unit", $('#unit').val());
+    form.append("division", $('#division').val());
+    form.append("state", $('#state').val());
+    // let companyName       = $('#companyName').val()
+    // let unit              = $('#unit').val()
+    // let division          = $('#division').val()
+    // let state             = $('#state').val()
+
+
+      $('input:checked.userType').each(function() {
+          selectedUserType.push($(this).val());
+      });
+      $('input:checked.productData').each(function() {
+          selectedProducts.push($(this).val());
+      });
+
+      $('.contactPerson').each(function() {
+          contactPerson.push($(this).val());
+      });
+      $('.mobile').each(function() {
+          mobile.push($(this).val());
+      });
+      $('.email').each(function() {
+          email.push($(this).val());
+      });
+
+      form.append("userType", JSON.stringify(selectedUserType) );
+      form.append("products", JSON.stringify(selectedProducts) );
+      form.append("contactPerson", JSON.stringify(contactPerson) );
+      form.append("mobile", JSON.stringify(mobile) );
+      form.append("email", JSON.stringify(email) );
+
+      form.append("application", $('#application').val() );
+      form.append("problem", $('#problem').val() );
+      form.append("projects", $('#projects').val() );
+      form.append("action", $('#action').val() );
+
+      form.append("otherProduct", $('#otherProduct').val());
+
+      // console.log("selectedUserType===>>>>", selectedUserType );
+      // console.log("selectedProducts===>>>>", selectedProducts );
+      // console.log("contactPerson===>>>>", contactPerson );
+      // console.log("mobile===>>>>", mobile );
+      // console.log("email===>>>>", email );
+
+      // console.log("files==>", $('#additionalDocs')[0].files);
+      for (var i = 0; i < $('#additionalDocs')[0].files.length; i++) {
+        form.append("additionalDocs", $('#additionalDocs')[0].files[i]);
+      }
+      // $('#additionalDocs')[0].files[0]
+      // $('#additionalDocs').each(function() {
+      //     contactPerson.push($(this).val());
+      // });
+
+      console.log("formData", form);
+      // return false;
+
+
+
+
+      var settings = {
+        "url": "/chemtechPostEntry",
+        "method": "POST",
+        "timeout": 0,
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        if (response == 'success') {
+          alert("Data successfully Registered");
+          location.reload();
+        }
+      });
+
+
+
+    // let userType = $('#userType').val();
+  });
+
+</script>
+</html>

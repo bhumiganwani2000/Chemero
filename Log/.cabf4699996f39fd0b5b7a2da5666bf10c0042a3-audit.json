@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "Log/.cabf4699996f39fd0b5b7a2da5666bf10c0042a3-audit.json",
+    "files": [
+        {
+            "date": 1704183206187,
+            "name": "Log/alfa-02-01-2024.log",
+            "hash": "a8c3dd91d898960b90374c5c8f9c1b1d"
+        },
+        {
+            "date": 1704263031612,
+            "name": "Log/alfa-03-01-2024.log",
+            "hash": "547a1a3bf4503dc820b44e0de17179d9"
+        }
+    ],
+    "hashType": "md5"
+}

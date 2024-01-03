@@ -1,0 +1,286 @@
+{% extends "partition/layout.html" %}
+
+
+{% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+	<div class="container-fluid">
+
+		<!-- Title -->
+		<section class="content-header">
+			<h1>CaseStudies</h1>
+			<!-- Breadcrumb -->
+			<ol class="breadcrumb">
+				<li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li class="active">CaseStudies</li>
+			</ol>
+			<!-- /Breadcrumb -->
+		</section>
+		<!-- /Title -->
+		{% include "partition/notification.html" %}
+		<!-- Row -->
+		<section class="content">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default card-view">
+						<div class="panel-heading">
+							<div class="pull-left">
+								<!-- <h6 class="panel-title txt-dark">Settings</h6> -->
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-wrapper collapse in">
+							<div class="panel-body">
+                                
+								<div class="table-wrap">
+									<div class="table-responsive">
+										{% if casestudies %}
+										<form method="POST" action="/backend/casestudiesEdit/{{casestudies._id}}" class="form-horizontal" enctype="multipart/form-data">
+										{% else %}
+										<form method="POST" action="/backend/addcasestudies" class="form-horizontal" enctype="multipart/form-data">
+										{% endif %}
+												<table border="0" class="table display  pb-30">
+													<div class="col-sm-12">
+														<div class="panel-wrapper collapse in">
+															<div class="panel-body">																
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="image">CaseStudies cover pic:</label>
+																	<div class="col-sm-6">
+																		{% if casestudies %}     
+																		<input type="hidden" id="productdeleteid" value="{{casestudies._id}}">																			
+																		<input type="hidden" name="files_selected"id="files_selected" />
+																		<input type="file" class="form-control" id="productImage" name="casestudiesImage" value="{{casestudies.casestudy_image}}" multiple >
+																		<div id="imgs"></div>
+																		{% for image in casestudies.casestudy_image %}
+																		{% if (image.is_deleted == "0") %}
+																		<div class="containerdiv_img">
+																			<input type="hidden" id="productImgId"
+																				value="{{image._id}}">
+																			<img id="proimage{{i}}"
+																				class="upload__img-wrap"
+																				src="{{image.path}}" height="200px"
+																				width="200px" alt=""><span
+																				id="cls{{i}} "
+																				class="close_img"><b>X</b></span>
+																		</div>
+																		{% endif %}
+																		{% endfor %}
+																		{% else %}   
+																		<input type="file" class="form-control"
+																				id="gallery-photo-add" multiple
+																				name="casestudiesImage" data-id ="Img_pre" value="" >
+																				<input type="hidden" name="files_selected_pre"
+																				id="files_selected_pre " />
+																				<!-- <div class="img_preview">
+																					<img id="prev1" src=""><span class='close1'>&times;</span>
+																				</div> -->
+																			<div  class="gallery"></div>
+																		<!-- <input type="file" class="form-control" id="casestudiesImage" required multiple name="casestudiesImage" value="{{casestudies.casestudy_image.path}}"> -->
+
+																		{% endif %} 	
+																	</div>
+																</div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label mb-10 col-sm-2" for="name">CaseStudies Name:</label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control" name="title" id="title" value="{{casestudies.casestudy_name}}" />
+                                                                    </div>
+                                                                </div>
+							
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="description">CaseStudies Description:</label>
+																	<div class="col-sm-6">
+																		<textarea class="form-control" name="description" id="description" rows="9" style="resize:none;">{{casestudies.casestudy_description}}</textarea>
+																	</div>
+																</div>                                          
+
+																
+
+															</div>
+														</div>
+													</div>
+													<tr>
+														<td colspan="2">
+                             
+															{% if casestudies %}
+															<input type="submit" class="btn btn-success btn-flat" value="Update">
+                                                            {% else %} 
+															<input type="submit" class="btn btn-success btn-flat" value="submit">
+															{% endif %}
+														</td>
+													</tr>
+												</table>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+					<!-- /Row -->
+			</div>
+	 	</section>
+
+{% endblock %}
+
+{% block Jscript %}
+<script>
+	// function del(index) {
+	// 			$('div.img_' + index).remove();
+	// 			updateFiles();
+	// 		}
+		// after closing preview show updated image preview
+		function updateFiles_pre() {
+				var fileIndexes = $('.gallery > div').map(function () {
+					return $(this).data('index');
+				}).get().join(",");
+				$('#files_selected_pre').val(fileIndexes);
+			}
+			//insert time multiple images preview 
+
+			$("#gallery-photo-add").on('change', function () {
+				var fileList = this.files;
+				$('.gallery').empty();
+				for (var i = 0; i < fileList.length; i++) {
+					var t = window.URL || window.webkitURL;
+					var objectUrl = t.createObjectURL(fileList[i]);
+					$('.removeimg').fadeIn();
+					$('.gallery').append('<div data-index="' + i + '" class="pip img_' + i + '"><span class="remove img_' + i + '" style="cursor:pointer; margin-right: 3px ;font-size: 30px;position: absolute;right: 245px;color: red ;"><b>x</b></span><img class="img_' + i + '" src="' + objectUrl + '" width="200px" height="200px" style="margin-right: 3px;"></div>');
+					j = i + 1;
+
+				}
+				updateFiles_pre();
+			});
+			// insert time preview close
+            $(document).on('click', '.remove', function(){
+			// alert(3)
+            var pips = $('.pip').toArray();
+            // alert(pips)
+            var $selectedPip = $(this).parent('.pip');
+            var index = pips.indexOf($selectedPip[0]);
+
+            var dt = new DataTransfer();
+            var files = $("#gallery-photo-add")[0].files;
+
+            for (var fileIdx = 0; fileIdx < files.length; fileIdx++) {
+                if (fileIdx !== index) {
+                dt.items.add(files[fileIdx]);
+              }
+            }
+            $("#gallery-photo-add")[0].files = dt.files;
+            $selectedPip.remove();
+          });
+
+			// function del(index) {
+			// 	$('div.img_' + index).remove();			
+			//   updateFiles();						
+			// }
+			
+			// after closing preview show updated image preview			
+			function updateFiles() {
+				var fileIndexes = $('#imgs > div').map(function () {
+					return $(this).data('index');
+				}).get().join(",");
+				$('#files_selected').val(fileIndexes);
+			}
+			// update tme multiple images preview
+			$("#productImage").on('change', function () {
+				var fileList = this.files;
+				$('#imgs').empty();
+				for (var i = 0; i < fileList.length; i++) {
+					var t = window.URL || window.webkitURL;
+					var objectUrl = t.createObjectURL(fileList[i]);
+					$('.removeimg').fadeIn();
+					$('#imgs').append('<div data-index=" ' + i + '" class="pip img_' + i + '"><span class="remove1 img_' + i + '" style="cursor:pointer; margin-right: 3px ;font-size: 30px;position: absolute;right: 245px;color: red ;"><b>x</b></span><img class="img_' + i + '" src="' + objectUrl + '" width="200px" height="200px" style="margin-right: 3px;"></div>');
+					j = i + 1;
+				}
+				updateFiles();
+			});
+			
+		//  update time preview close
+		  $(document).on('click', '.remove1', function(){
+			// alert(3)
+            var pips = $('.pip').toArray();
+            // alert(pips)
+            var $selectedPip = $(this).parent('.pip');
+            var index = pips.indexOf($selectedPip[0]);
+
+            var dt = new DataTransfer();
+            var files = $("#productImage")[0].files;
+
+            for (var fileIdx = 0; fileIdx < files.length; fileIdx++) {
+                if (fileIdx !== index) {
+                dt.items.add(files[fileIdx]);
+              }
+            }
+            $("#productImage")[0].files = dt.files;
+
+            $selectedPip.remove();
+          });
+		  	$(document).ready(function () {
+				
+				var host = window.location.origin;
+				$(function () {
+					"use strict";
+					var SweetAlert = function () { };
+
+					SweetAlert.prototype.init = function () {
+
+						//Parameter
+						$('body').on('click', '.close_img', function (e) {
+							var deleteid = $('#productImgId').val();
+							var id = $('#productdeleteid').val();
+							console.log(id, "id");
+							var thisElement = this;
+							swal({
+								title: "Are you sure?",
+								text: "You will not be able to recover this Project!",
+								type: "warning",
+								showCancelButton: true,
+								confirmButtonColor: "#e69a2a",
+								confirmButtonText: "Yes, delete it!",
+								cancelButtonText: "No, cancel plx!",
+								closeOnConfirm: false,
+								closeOnCancel: false
+							}, function (isConfirm) {
+								if (isConfirm) {
+									$.ajax({
+										type: 'GET',
+										url: host + "/backend/caseStudiesImageDelete/" + id + "/" + deleteid,
+										success: function (resultData) {
+											//  alert(resultData)
+											console.log(resultData);
+											if (resultData == 'success') {
+												$(thisElement).parent().hide(700);
+												swal("Deleted!", "Your imaginary file has been deleted.", "success");
+											} else {
+												alert("Something went wrong")
+											}
+											// alert("Save Complete")
+										}
+									});
+									swal("Deleted!", "productImage Deleted Succesfully.", "success");
+
+								} else {
+									swal("Cancelled", "productImage Not Deleted)", "error");
+								}
+							});
+							return false;
+						});
+
+					},
+						$.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert;
+
+					$.SweetAlert.init();
+				});
+			});
+
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+{% endblock %}

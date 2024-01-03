@@ -1,0 +1,338 @@
+{% extends "frontEnd/partitions/layout.html" %}
+{% block body %}
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="page-title-inner">
+                <div class="float-left">
+                    <h1 class="page-title">{{singleCasestudyData.casestudy_name}}</h1>
+                </div>
+                <div class="float-right">
+                    <div id="breadcrumb-menu" class="breadcrumb-menu">
+                        <a href="javascript:void(0)">Home</a> 
+                        <span class="current">Case studies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ptb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-sm-12 col-md-12">
+                            <div class="owl-carousel owl-theme studies-details">
+                                {% for image in singleCasestudyData.casestudy_image %}
+                                <div class="item">
+                                    <img src="{{image.path}}" width="500" height="300">
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                                                
+                        <div class="entry-meta top-meta clearfix">
+                            <div class="post-meta float-left">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <div class="post-date mr-1">
+                                            <i class="far fa-calendar-alt"></i>
+                                            <a href="javascript:void(0)">{{dateResult}}</a>
+                                        </div>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <div class="post-category">
+                                            <i class="far fa-folder mr-1"></i>
+                                            <a href="#">Latest News</a>
+                                        </div>
+                                    </li> -->
+                                </ul>
+                            </div>
+                            <!-- <div class="post-meta float-right">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <div class="post-comment">
+                                            <i class="far fa-comments mr-1"></i>
+                                            <a href="#" rel="bookmark" class="comments-count">0 Comments</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div> -->
+                        </div>
+                        
+                            <p>{{singleCasestudyData.casestudy_description}}</p>
+                        
+                        <!-- <div class="entry-meta bottom-meta clearfix"> -->
+                            <!-- <div class="post-meta float-left">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <div class="post-tags">
+                                            <i class="fas fa-tags"></i>
+                                            <a href="#">Industry</a>,<a href="#">Process</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div> -->
+                            <!-- <div class="post-meta float-right">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <div class="post-social">
+                                            <ul class="nav social-icons">
+                                                <li>
+                                                    <a href="#" target="blank" class="social-fb share-fb">
+                                                        <i class="fab fa-facebook-f"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="social-twitter share-twitter">
+                                                        <i class="fab fa-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="social-linkedin share-linkedin">
+                                                        <i class="fab fa-linkedin-in"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="social-pinterest share-pinterest">
+                                                        <i class="fab fa-pinterest"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div> -->
+                        <!-- </div> -->
+                        <!-- <div class="custom-post-nav">
+                            <div class="prev-nav-link"> 
+                                {% for application in singleApplicationData %}
+                                    <a href="#" class="prev">
+                                        <i class="fas fa-long-arrow-alt-left"></i>
+                                        <h4>{{application.name}}</h4>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                            <div class="next-nav-link"> 
+                                <a href="#" class="next">
+                                    <h4>Mining from the top zone</h4>
+                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                </a>
+                            </div>
+                        </div> -->
+                        <!-- <div class="media">
+                            <img src="image/case.jpeg" class="mr-3">
+                            <div class="media-body">
+                                <h5 class="mt-0">Johny Walker</h5>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+                                text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                <div class="social-media-ico">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-vimeo-v"></i></a>
+                                    <a href="#"><i class="fab fa-youtube"></i></a>
+                                </div>
+                            </div>
+                        </div> -->
+                    
+                </div>
+                <div class="col-lg-4 col-sm-12 col-md-12">  
+                    <div class="right-widget-area">
+                        <form class="search-form our-search-box">
+                            <div class="input-group"> 
+                                <input type="text" class="form-control" name="s" value="" placeholder="Search for..."> 
+                                <span class="input-group-btn"> 
+                                    <button class="btn btn-secondary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button> 
+                                </span>
+                            </div>
+                        </form>
+                        <div class="widget">
+                            <h3 class="widget-title">Case Studies</h3>
+                            <ul class="side-newsfeed">
+                                {% for casedata in caseStudiesData %}
+                                    <li>                                        
+                                        <div class="side-item">
+                                            <a href="/caseStudiesDetails/{{casedata._id}}"><img src="{{casedata.casestudy_image[0].path}}" alt="" class="side-image"></a>
+                                        </div>
+                                    <!-- {% for caseimage in casedata.casestudy_image %}
+                                        <div class="side-item">
+                                            <a href="/caseStudiesDetails/{{casedata._id}}"><img src="{{caseimage.path}}" alt="" class="side-image"></a>
+                                        </div>
+                                     {% endfor %} -->
+                                        <div class="side-item-text">
+                                            <a href="/caseStudiesDetails/{{casedata._id}}">{{casedata.casestudy_name}}</a>
+                                            <div class="meta-right"> 
+                                                <i class="far fa-calendar-alt"></i> 
+                                                <span>{{dateResult}}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <h3 class="widget-title">Categories</h3>
+                            <ul class="categories">
+                                {% for category in categoryData %}
+                                    <li><a href="/application">{{category.categoryName}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <h3 class="widget-title">Recent Post</h3>
+                            {% for application in applicationData %}
+                                <ul class="categories">
+                                    <li><a href="/application-details/{{application._id}}">{{application.name}}</a></li>
+                                </ul>
+                            {% endfor %}
+                        </div>
+                        <div class="widget">
+                            <div class="help-form h-100">
+                                <h2 style="font-size: 23px;color: #ffffff;line-height: 35px; font-weight: 600;">DO YOU NEED ANY HELP?</h2>
+                                <p class="text-white mb-4">My job is to help professionals to achieve their industrial goals whilst having adequate protection along the way.</p>
+                                <div class="feature-box-btn text-left mt-4">
+                                    <a class="btn default contact-btn" href="javascript:void(0)">CONTACT NOW</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="owl-carousel owl-theme slide-owl">
+                                {% for oData in ourTestimonialsData%}
+
+                                    <div class="item">
+                                        <div class="testimonial-inner rounded">
+                                            <div class="testimonial-excerpt">
+                                                <p>{{oData.testimonial}}</p>
+                                            </div>
+                                            <div class="testimonial-thumb-all">
+                                                <img src="{{oData.image}}" alt="" class="rounded-circle">
+                                            </div>
+                                            <div class="testimonial-info">
+                                                <p><a href="javascript:void(0)" class="client-name">{{oData.name}}</a></p>
+                                                <span>{{oData.designation}}</span>, <a href="javascript:void(0)">{{oData.company_name}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                            
+                                {% endfor %}
+                            
+                            </div>
+                        
+                        </div>
+                        <!-- <div class="widget">
+                            <div class="owl-carousel owl-theme slide-owl">
+                                <div class="item">
+                                    <div class="testimonial-inner rounded">
+                                        <div class="testimonial-excerpt">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                                        </div>
+                                        <div class="testimonial-thumb">
+                                            <img src="image/team_member2-80x80.jpg" alt="" class="rounded-circle">
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <p><a href="#" class="client-name">Kevin Nash</a></p>
+                                            <span>Manager</span>, <a href="#">Alfa Pumps (P) Limited</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimonial-inner rounded">
+                                        <div class="testimonial-excerpt">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                                        </div>
+                                        <div class="testimonial-thumb">
+                                            <img src="image/testi-1-80x80.jpg" alt="" class="rounded-circle">
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <p><a href="#" class="client-name">David Johnson</a></p>
+                                            <span>President</span>, <a href="#">Alfa Pumps (P) Limited</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimonial-inner rounded">
+                                        <div class="testimonial-excerpt">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                                        </div>
+                                        <div class="testimonial-thumb">
+                                            <img src="image/testi-2-80x80.jpg" alt="" class="rounded-circle">
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <p><a href="#" class="client-name">Ernestina Lee</a></p>
+                                            <span>President</span>, <a href="#">Alfa Pumps (P) Limited</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimonial-inner rounded">
+                                        <div class="testimonial-excerpt">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                                        </div>
+                                        <div class="testimonial-thumb">
+                                            <img src="image/testi-3-80x80.jpg" alt="" class="rounded-circle">
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <p><a href="#" class="client-name">Paul Anderson</a></p>
+                                            <span>CEO</span>, <a href="#">Alfa Pumps (P) Limited</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimonial-inner rounded">
+                                        <div class="testimonial-excerpt">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                                        </div>
+                                        <div class="testimonial-thumb">
+                                            <img src="image/testi-3-80x80.jpg" alt="" class="rounded-circle">
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <p><a href="#" class="client-name">Ruben Driggs</a></p>
+                                            <span>Engineer</span>, <a href="#">Alfa Pumps (P) Limited</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimonial-inner rounded">
+                                        <div class="testimonial-excerpt">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                                        </div>
+                                        <div class="testimonial-thumb">
+                                            <img src="image/testi-5-300x300.jpg" alt="" class="rounded-circle">
+                                        </div>
+                                        <div class="testimonial-info">
+                                            <p><a href="#" class="client-name">Clifford Donley</a></p>
+                                            <span>Manager</span>, <a href="#">Alfa Pumps (P) Limited</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="widget">
+                            <div class="pdf-btn">
+                                <a class="" href="javascript:void(0)"><i class="far fa-file-pdf mr-3"></i>COMPANY PRESENTATION</a>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <h3 class="widget-title">Tags</h3>
+                            <div class="tagcloud">
+                                <a href="#" class="tag-cloud-link">Business</a>
+                                <a href="#" class="tag-cloud-link">Gas</a>
+                                <a href="#" class="tag-cloud-link">Industry</a>
+                                <a href="#" class="tag-cloud-link">Mechanical</a>
+                                <a href="#" class="tag-cloud-link">Metal</a>
+                                <a href="#" class="tag-cloud-link">Process</a>
+                                <a href="#" class="tag-cloud-link">Research</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block Jscript %}
+        
+{% endblock %}
+    

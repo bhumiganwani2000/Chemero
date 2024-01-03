@@ -1,0 +1,149 @@
+{% extends "partition/layout.html" %}
+
+
+{% block body %}
+
+
+<!-- Main Content -->
+<div class="page-wrapper">
+	<div class="container-fluid">
+
+		<!-- Title -->
+		<section class="content-header">
+			<h1>FactoryTour</h1>
+			<!-- Breadcrumb -->
+			<ol class="breadcrumb">
+				<li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				<li class="active">FactoryTour/li>
+			</ol>
+			<!-- /Breadcrumb -->
+		</section>
+		<!-- /Title -->
+		{% include "partition/notification.html" %}
+		<!-- Row -->
+		<section class="content">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default card-view">
+						<div class="panel-heading">
+							<div class="pull-left">
+								<!-- <h6 class="panel-title txt-dark">Settings</h6> -->
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-wrapper collapse in">
+							<div class="panel-body">
+                                
+								<div class="table-wrap">
+									<div class="table-responsive">
+										{% if FactoryTourData %}
+										<form method="POST" action="/backend/FactoryTourEdit/{{FactoryTourData._id}}" class="form-horizontal" enctype="multipart/form-data">
+										{% else %}
+										<form method="POST" action="/backend/addfactorytour" class="form-horizontal" enctype="multipart/form-data">
+										{% endif %}
+												<table border="0" class="table display  pb-30">
+													<div class="col-sm-12">
+														<div class="panel-wrapper collapse in">
+															<div class="panel-body">																
+
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="image">FactoryTour cover pic:</label>
+																	<div class="col-sm-6">
+																		{% if FactoryTourData %}
+
+																		<input type="file" class="form-control"onchange="previewFile(this);"
+																		id="FactoryTourImage" name="FactoryTourImage" value="">
+
+																		<br><img id="previewImg"src="{{FactoryTourData.image}}" height="200px"
+																			width="200px" alt=""required><span class='close1'>&times;</span>
+
+																		{% else %}
+																		<input type="file" class="form-control"onchange="previewFile(this);"
+																		id="FactoryTourImage" name="FactoryTourImage" required
+																			value=""> 
+
+																		<br><img style="display: none;" id="previewImg" src="{{FactoryTourData.image}}" height="200px"
+																			width="200px" alt=""><span style="display: none;" class='close1'>&times;</span>
+
+
+																		{% endif %}
+																		<!-- {% if FactoryTourData %}     
+
+																		<input type="file" class="form-control" id="FactoryTourImage" name="FactoryTourImage" value="{{FactoryTourData.image}}" >
+
+																		<br><img src= "{{FactoryTourData.image}}" height="200px" width="200px" alt="">
+
+																		{% else %}   
+																		<input type="file" class="form-control" id="FactoryTourImage" required  name="FactoryTourImage" value="{{FactoryTourData.image}}">
+
+																		{% endif %} 	 -->
+																	</div>
+																</div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label mb-10 col-sm-2" for="name">Title:</label>
+                                                                    <div class="col-sm-6">
+                                                                        <input type="text" class="form-control" name="title" id="title" value="{{FactoryTourData.title}}" />
+                                                                    </div>
+                                                                </div>
+							
+																<div class="form-group">
+																	<label class="control-label mb-10 col-sm-2" for="description">Description:</label>
+																	<div class="col-sm-6">
+																		<textarea class="form-control" name="description" id="description" rows="9" style="resize:none;">{{FactoryTourData.description}}</textarea>
+																	</div>
+																</div>                                                         
+														
+															</div>
+														</div>
+													</div>
+													<tr>
+														<td colspan="2">
+                             
+															{% if FactoryTourData %}
+															<input type="submit" class="btn btn-success btn-flat" value="Update">
+                                                            {%else%} 
+															<input type="submit" class="btn btn-success btn-flat" value="submit">
+															{% endif %}
+														</td>
+													</tr>
+												</table>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+					<!-- /Row -->
+			</div>
+	 	</section>
+
+{% endblock %}
+
+{% block Jscript %}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+	 function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#previewImg").attr("src", reader.result);
+				$("#previewImg").css({'display':'block'});
+				$(".close1").css({'display':'block'});				
+            }
+ 
+            reader.readAsDataURL(file);
+        }
+    }
+	$(".close1").click(function () {
+            $('#previewImg').css({'display':'none'});
+            $('.close1').css({'display':'none'});
+            // modal1.style.display = "none";
+        });
+</script>
+
+{% endblock %}

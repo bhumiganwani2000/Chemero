@@ -1,0 +1,731 @@
+{% extends "frontEnd/partitions/layout.html" %}
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+</head>
+{% block body %}
+<section class="breadcrumb">
+    <div class="container">
+        <div class="page-title-inner">
+            <div class="float-left">
+                <h1 class="page-title">Contact Us</h1>
+            </div>
+            <div class="float-right">
+                <div id="breadcrumb-menu" class="breadcrumb-menu">
+                    <a href="javascript:void(0)">Home</a>
+                    <span class="current">Contact Us</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- {% if (success.length > 0) %}
+<div class="alert alert-success alert-dismissable notifications">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{success}}
+</div>
+{% endif %}
+{% if (error.length > 0) %}
+<div class="alert alert-danger alert-dismissable notifications">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{error}}
+</div>
+{% endif %} -->
+<section class="ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12 col-md-12">
+                <h2 class="section-title-border">Get In Touch</h2>
+                <p>Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
+                    porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                <form class="contact-form">
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="max-width:100% ;">
+                        <div class="form-group">
+                            <select class="select-profiletype" name="profiletype" id="profiletype">
+                                {% for data in profileTypeData%}
+                                {% if (data.profileType.length>0) %}
+                                <option placeholder="Select Profile Type" value="{{data.profileType}}">{{data.profileType}}</option>
+                                {% endif %}
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="text" id="customerName" name="name" class="form-control"
+                                    placeholder="Your Name" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="email" id="customerEmail" name="email" class="form-control"
+                                    placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="text" id="customerPhone" name="phone" class="form-control"
+                                    placeholder="Phone Number" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="text" id="companyname" name="companyname" class="form-control"
+                                    placeholder="Company Name" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_i">
+                            <div class="form-group">
+                                <input type="text" id="typeofindustry" name="typeofindustry" class="form-control"
+                                    placeholder="Type of Industry" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv">
+                            <div class="form-group">
+                                <input type="text" id="itemname" name="itemname" class="form-control"
+                                    placeholder="Item Name" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_c">
+                            <div class="form-group">
+                                <input type="text" id="contractor" name="contractor" class="form-control"
+                                    placeholder= "Type of contract"  >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_r">
+                            <div class="form-group">
+                                <input type="text" id="representative" name="representative" class="form-control"
+                                    placeholder="Name of product and area" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_ins">
+                            <div class="form-group">
+                                <input type="text" id="aboutinstitute" name="aboutinstitute" class="form-control"
+                                    placeholder="About Institute" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_pdf">
+                            <div class="form-group">
+                                <input type="file" id="attachpdfoption" name="attachpdfoption" class="form-control"
+                                    placeholder=" Attach pdf " >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_t">
+                            <div class="form-group">
+                                <select type="text" id="teamalfa" name="teamalfa" class="profile_contact"
+                                    placeholder="Select position" >
+                                    <option value="Junior">Junior</option>
+                                    <option value="Senior">Senior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_cv">
+                            <div class="form-group">
+                                <input type="file" id="uploadcV" name="uploadcV" class="form-control"
+                                    placeholder="Upload CV" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_intern">
+                            <div class="form-group">
+                                <input type="text" id="institute_i" name="institute_i" class="form-control"
+                                    placeholder="Institute" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_d">
+                            <div class="form-group">
+                                <input type="text" id="degree" name="degree" class="form-control"
+                                    placeholder="Degree" >
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_s">
+                            <div class="form-group">
+                                <input type="text" id="semester" name="semester" class="form-control"
+                                    placeholder="Semester" >
+                            </div>
+                        </div> 
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_time">
+                            <div class="form-group">
+                                <input type="text" id="timeperiod" name="timeperiod" class="form-control"
+                                    placeholder="Time Period" >
+                            </div>
+                        </div> 
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_n">
+                            <div class="form-group">
+                                <input type="text" id="notes" name="notes" class="form-control"
+                                    placeholder="Notes" >
+                            </div>
+                        </div> 
+                        <div class="col-lg-6 col-md-12 col-sm-12" id="otherFieldDiv_u">
+                            <div class="form-group">
+                                <input type="file" id="uploadcvoption" name="uploadcvoption" class="form-control"
+                                    placeholder="Upload CV option" >
+                            </div>
+                        </div> 
+
+                        <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <textarea id="customerMessage"  name ="message" cols="40" rows="5" class="form-control" placeholder="Message"required></textarea>
+                                  </div>
+                            </div> -->
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <input type="submit" class="btn send-btn" value="Send Now" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 col-sm-12 col-md-12">
+                <select class="select-country-code " name="selectCountry" id="selectCountry">
+
+                    {% for region in regionData%}
+
+                    {% if(region.address.length>0) or (region.phone.length>0) or (region.email.length>0)%}
+                    <option value="{{region._id}}">{{region.regionName}}</option>
+                    {% endif %}
+
+
+                    {% endfor %}
+                </select>
+                <div class="contact-list-form">
+                    <div class=" alfapump_address " id="addressData">
+                        <!-- <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">
+                                <span class="fas fa-map-marker-alt"></span>
+                            </div> -->
+                        <!-- <div class="media-body"> -->
+                        <!-- <div class="feature-box-title">
+                                    <h5 class="section-title">{{regionsingleData.address}}</h5>
+                                </div>
+                                <div class="feature-box-content">
+                                    No. 12 Julius Ave,<br>
+                                    North Ryde, Australia,<br>
+                                    Postcode- 2113</div> -->
+                        <!-- </div> -->
+                    </div>
+                    <div class=" alfapump_address " id="phoneData">
+                        <!-- <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">
+                                <span class="fas fa-mobile-alt"></span>
+                            </div>
+                            <div class="media-body">
+                                <div class="feature-box-title">
+                                    <h5 class="section-title">CALL US</h5>
+                                </div>
+                                <div class="feature-box-content">
+                                
+                                </div>
+                            </div> -->
+                    </div>
+                    <div class=" alfapump_address " id="emailData">
+                        <!-- <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">
+                                <span class="far fa-envelope"></span>
+                            </div>
+                            <div  class="media-body"> -->
+                        <!-- <div class="feature-box-title">
+                                    <h5 class="section-title">MAIL US</h5>
+                                </div>
+                                <div class="feature-box-content">
+                                    info@example.com,<br>
+                                    text@example.com
+                                </div> -->
+                        <!-- </div> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.92992928351!2d72.73712861428179!3d22.989604023329985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e7d33561d52bd%3A0x22b152c07c222ce9!2sALFA%20PUMPS%20(P)%20LIMITED%2C%20GJ%20SH%20144%2C%20Bakrol%20Bujrang%2C%20Gujarat%20382433!5e0!3m2!1sen!2sin!4v1623651431990!5m2!1sen!2sin"
+        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+{% endblock %}
+
+{% block Jscript %}
+<script>
+    // location.reload();
+    $(document).ready(function () {
+        var host = window.location.origin;
+
+        //    let id = $('#selectCountry').val();
+        //    alert(id);
+        //    console.log(id);
+
+        $.ajax({
+            type: 'POST',
+            url: host + '/backend/getSingleRegionData',
+            data: { id: $('#selectCountry').val() },
+            success: function (data) {
+                console.log("hello", data);
+                let htmlContent = '<div class="media">\
+                                                <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">\
+                                                    <span class="fas fa-map-marker-alt"></span>\
+                                                </div>\
+                                                <div class="media-body">\
+                                                        <div class="feature-box-title">\
+                                                            <h5 class="section-title">VISIT US</h5>\
+                                                        </div>\
+                                                        <div class="feature-box-content addresstext" name="selectAddress "id="address">\
+                                                            '+ data.data.address[0] + '\
+                                                        </div>\
+                                                </div>\
+                                            </div>';
+
+                console.log("htmlContent", htmlContent);
+                $('#addressData').html(htmlContent)
+
+
+                for (let i = 1; i < data.data.address.length; i++) {
+
+                    htmlContent += '<div class=" new_addressalfa addresstext" name="selectAddress "id="address">\
+                                                            '+ data.data.address[i] + '<br>\
+                                                            </div>';
+                    console.log("htmlContent", htmlContent);
+                    $('#addressData').html(htmlContent)
+                    console.log("=================", data.data.address[i]);
+
+                }
+
+
+                let phonehtmlContent = '<div class="media">\
+                                                <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">\
+                                                    <span class="fas fa-mobile-alt"></span>\
+                                                </div>\
+                                                <div class="media-body">\
+                                                    <div class="feature-box-title">\
+                                                        <h5 class="section-title">CALL US</h5>\
+                                                    </div>\
+                                                    <a href="tel:'+ data.data.phone[0] + '">\
+                                                    <div class="feature-box-content" href="tel:'+ data.data.phone[0] + '">\
+                                                        '+ data.data.phone[0] + '<br>\
+                                                    </div>\
+                                                    </a>\
+                                                </div>\
+                                            </div>';
+
+                console.log("phonehtmlContent", phonehtmlContent);
+                $('#phoneData').html(phonehtmlContent);
+
+                for (let j = 1; j < data.data.phone.length; j++) {
+                    phonehtmlContent += '<div class="new_addressalfa">\
+                                                        '+ data.data.phone[j] + '<br>\
+                                                    </div>';
+
+                    console.log("phonehtmlContent", phonehtmlContent);
+                    $('#phoneData').html(phonehtmlContent);
+
+                    console.log("================", data.data.phone[j]);
+                }
+
+                let emailhtmlContent = '<div class="media">\
+                                                <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">\
+                                                    <span class="far fa-envelope"></span>\
+                                                </div>\
+                                                <div class="media-body">\
+                                                    <div class="feature-box-title">\
+                                                        <h5 class="section-title">MAIL US</h5>\
+                                                    </div>\
+                                                    <a href="mailto:'+ data.data.email[0] + '">\
+                                                    <div class="feature-box-content" name="selectEmail" id="emailData">\
+                                                    '+ data.data.email[0] + '<br>\
+                                                    </div>\
+                                                    </a>\
+                                                </div>\
+                                            </div>';
+                console.log("emailhtmlContent", emailhtmlContent);
+                $('#emailData').html(emailhtmlContent);
+
+                for (let k = 1; k < data.data.email.length; k++) {
+                    emailhtmlContent += '<div class="new_addressalfa" name="selectEmail" id="emailData">\
+                                                '+ data.data.email[k] + '<br>\
+                                                </div>';
+                    console.log("emailhtmlContent", emailhtmlContent);
+                    $('#emailData').html(emailhtmlContent);
+
+                    console.log("================", data.data.email[k]);
+
+                }
+            }
+        });
+        $('#selectCountry').change(function () {
+
+            // alert();
+
+            var host = window.location.origin;
+            let id = $(this).val();
+
+            $.ajax({
+                type: 'POST',
+                url: host + "/backend/getRegionData",
+                data: { id: id },
+                success: function (data) {
+                    console.log("hello", data);
+                    // let addressDATA ="";
+
+                    if (data.data.address[0] != undefined && data.data.address[0] != " ") {
+                        let htmlContent = '<div class="media">\
+                                                <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">\
+                                                    <span class="fas fa-map-marker-alt"></span>\
+                                                </div>\
+                                                <div class="media-body">\
+                                                        <div class="feature-box-title">\
+                                                            <h5 class="section-title">VISIT US</h5>\
+                                                        </div>\
+                                                        <div class="feature-box-content addresstext" name="selectAddress "id="address">\
+                                                            '+ data.data.address[0] + '<br>\
+                                                        </div>\
+                                                </div>\
+                                            </div>';
+                        console.log("htmlContent", htmlContent);
+                        $('#addressData').html(htmlContent)
+
+                        for (let i = 1; i < data.data.address.length; i++) {
+
+                            htmlContent += '<div class="new_addressalfa addresstext" name="selectAddress "id="address">\
+                                                            '+ data.data.address[i] + '<br>\
+                                                            </div>';
+                            console.log("htmlContent", htmlContent);
+                            $('#addressData').html(htmlContent)
+                            console.log("=================", data.data.address[i]);
+
+                        }
+                    } else {
+                        let htmlContent = '';
+                        console.log("htmlContent", htmlContent);
+                        $('#addressData').html(htmlContent)
+
+                        // $('#blankAddressData').html(htmlContent)   
+                    }
+
+
+
+                    if (data.data.phone[0] != undefined) {
+
+                        let phonehtmlContent = '<div class="media">\
+                                                    <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">\
+                                                        <span class="fas fa-mobile-alt"></span>\
+                                                    </div>\
+                                                    <div class="media-body">\
+                                                        <div class="feature-box-title">\
+                                                            <h5 class="section-title">CALL US</h5>\
+                                                        </div>\
+                                                        <div class="feature-box-content">\
+                                                            '+ data.data.phone[0] + '<br>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>';
+
+                        console.log("phonehtmlContent", phonehtmlContent);
+                        $('#phoneData').html(phonehtmlContent);
+
+                        for (let j = 1; j < data.data.phone.length; j++) {
+                            phonehtmlContent += '<div class="new_addressalfa">\
+                                                            '+ data.data.phone[j] + '<br>\ </div>';
+
+
+                            console.log("phonehtmlContent", phonehtmlContent);
+                            $('#phoneData').html(phonehtmlContent);
+
+                            console.log("================", data.data.phone[j]);
+                        }
+                    } else {
+                        let phonehtmlContent = '';
+                        console.log("phonehtmlContent", phonehtmlContent);
+                        // $('#blankPhoneData').html(phonehtmlContent);
+                        $('#phoneData').html(phonehtmlContent);
+
+                    }
+                    if (data.data.email[0] != undefined) {
+
+                        let emailhtmlContent = '<div class="media">\
+                                                    <div class="feature-box-icon mr-3 text-center rounded-circle theme-color">\
+                                                        <span class="far fa-envelope"></span>\
+                                                    </div>\
+                                                    <div class="media-body">\
+                                                        <div class="feature-box-title">\
+                                                            <h5 class="section-title">MAIL US</h5>\
+                                                        </div>\
+                                                        <div class="feature-box-content" name="selectEmail" id="emailData">\
+                                                        '+ data.data.email[0] + '<br>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>';
+                        console.log("emailhtmlContent", emailhtmlContent);
+                        $('#emailData').html(emailhtmlContent);
+
+                        for (let k = 1; k < data.data.email.length; k++) {
+                            emailhtmlContent += '<div class="new_addressalfa" name="selectEmail" id="emailData">\
+                                                    '+ data.data.email[k] + '<br>\ </div>';
+                            console.log("emailhtmlContent", emailhtmlContent);
+                            $('#emailData').html(emailhtmlContent);
+
+                            console.log("================", data.data.email[k]);
+
+                        }
+                    } else {
+                        let emailhtmlContent = '';
+                        console.log("emailhtmlContent", emailhtmlContent);
+                        // $('#blankEmailData').html(emailhtmlContent);
+                        $('#emailData').html(emailhtmlContent);
+
+                    }
+                }
+            });
+        });
+
+        const contactForm = document.querySelector('.contact-form');
+
+        let profiletype = document.getElementById('profiletype');
+        let customerName = document.getElementById('customerName');
+        let customerEmail = document.getElementById('customerEmail');
+        let customerPhone = document.getElementById('customerPhone');
+        let companyname = document.getElementById('companyname');
+        let itemname = document.getElementById('itemname');
+        let typeofindustry = document.getElementById('typeofindustry');
+        let typeofcontract = document.getElementById('typeofcontract');
+        let nameofproductandarea = document.getElementById('nameofproductandarea');
+        let aboutinstitute = document.getElementById('aboutinstitute');
+        let attachpdfoption = document.getElementById('attachpdfoption');
+        let selectposition = document.getElementById('selectposition');
+        let institute = document.getElementById('institute');
+        let degree = document.getElementById('degree');
+        let semester = document.getElementById('semester');
+        let timeperiod = document.getElementById('timeperiod');
+        let notes = document.getElementById('notes');
+        let uploadcvoption = document.getElementById('uploadcvoption');
+
+
+
+        // let customerMessage = document.getElementById('customerMessage');
+
+/*        $("#profiletype").change(function () {
+
+            
+            if ($(this).val() == "Vendors") {
+                $('#otherFieldDiv').show();
+                $('#otherFieldDiv_i').hide();
+                $('#otherFieldDiv_c').hide();
+                $('#otherFieldDiv_r').hide();
+                $('#otherFieldDiv_ins').hide();
+                $('#otherFieldDiv_pdf').hide();
+                $('#otherFieldDiv_t').hide();
+                $('#otherFieldDiv_cv').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_s').hide();
+                $('#otherFieldDiv_time').hide();
+                $('#otherFieldDiv_n').hide();
+                $('#otherFieldDiv_u').hide();
+                // $('#itemname').attr('required', '');
+                // $('#itemname').attr('data-error', 'This field is required.');
+            } 
+            else if($(this).val() == "Customer") {             
+                $('#otherFieldDiv_i').show();
+                $('#otherFieldDiv').hide();
+                $('#otherFieldDiv_c').hide();  
+                $('#otherFieldDiv_r').hide();
+                $('#otherFieldDiv_ins').hide();
+                $('#otherFieldDiv_pdf').hide();
+                $('#otherFieldDiv_t').hide();
+                $('#otherFieldDiv_cv').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_s').hide();
+                $('#otherFieldDiv_time').hide();
+                $('#otherFieldDiv_n').hide();
+                $('#otherFieldDiv_u').hide();
+                // $('#typeofindustry').attr('required', '');
+                // $('#typeofindustry').attr('data-error', 'This field is required.');
+            }
+            else if($(this).val() == "Contractor") {
+                $('#otherFieldDiv_c').show();
+                $('#otherFieldDiv').hide();
+                $('#otherFieldDiv_i').hide();
+                $('#otherFieldDiv_r').hide();
+                $('#otherFieldDiv_ins').hide();
+                $('#otherFieldDiv_pdf').hide();
+                $('#otherFieldDiv_t').hide();
+                $('#otherFieldDiv_cv').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_s').hide();
+                $('#otherFieldDiv_time').hide();
+                $('#otherFieldDiv_n').hide();
+                $('#otherFieldDiv_u').hide();
+                // $('#typeofindustry').attr('required', '');
+                // $('#typeofindustry').attr('data-error', 'This field is required.');
+            }
+            else if($(this).val() == "Representative") {
+                alert("hello");
+                $('#otherFieldDiv_r').show();
+                $('#otherFieldDiv').hide();
+                $('#otherFieldDiv_c').hide(); 
+                $('#otherFieldDiv_i').hide();
+                $('#otherFieldDiv_ins').hide();
+                $('#otherFieldDiv_pdf').hide();
+                $('#otherFieldDiv_t').hide();
+                $('#otherFieldDiv_cv').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_s').hide();
+                $('#otherFieldDiv_time').hide();
+                $('#otherFieldDiv_n').hide();
+                $('#otherFieldDiv_u').hide();
+                // $('#typeofindustry').attr('required', '');
+                // $('#typeofindustry').attr('data-error', 'This field is required.');
+            }
+            else if($(this).val() == "Institute") {
+                $('#otherFieldDiv_ins').show();
+                $('#otherFieldDiv_pdf').show();
+                $('#otherFieldDiv').hide();
+                $('#otherFieldDiv_i').hide();
+                $('#otherFieldDiv_c').hide();
+                $('#otherFieldDiv_r').hide();
+                $('#otherFieldDiv_t').hide();
+                $('#otherFieldDiv_cv').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_s').hide();
+                $('#otherFieldDiv_time').hide();
+                $('#otherFieldDiv_n').hide();
+                $('#otherFieldDiv_u').hide();
+                // $('#typeofindustry').attr('required', '');
+                // $('#typeofindustry').attr('data-error', 'This field is required.');
+            }
+            else if($(this).val() == "Team Alfa") {
+                $('#otherFieldDiv_t').show();
+                $('#otherFieldDiv_cv').show();
+                $('#otherFieldDiv_ins').hide();
+                $('#otherFieldDiv_pdf').hide();
+                $('#otherFieldDiv').hide();
+                $('#otherFieldDiv_i').hide();
+                $('#otherFieldDiv_c').hide();
+                $('#otherFieldDiv_r').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_s').hide();
+                $('#otherFieldDiv_time').hide();
+                $('#otherFieldDiv_n').hide();
+                $('#otherFieldDiv_u').hide();
+                // $('#typeofindustry').attr('required', '');
+                // $('#typeofindustry').attr('data-error', 'This field is required.');
+            }
+            else if($(this).val() == "Intern") {
+                $('#otherFieldDiv_intern').show();
+                $('#otherFieldDiv_d').show();
+                $('#otherFieldDiv_s').show();
+                $('#otherFieldDiv_time').show();
+                $('#otherFieldDiv_n').show();
+                $('#otherFieldDiv_u').show();        
+                $('#otherFieldDiv_t').hide();
+                $('#otherFieldDiv_cv').hide();
+                $('#otherFieldDiv_ins').hide();
+                $('#otherFieldDiv_pdf').hide();
+                $('#otherFieldDiv').hide();
+                $('#otherFieldDiv_i').hide();
+                $('#otherFieldDiv_c').hide();
+                $('#otherFieldDiv_r').hide();
+                // $('#typeofindustry').attr('required', '');
+                // $('#typeofindustry').attr('data-error', 'This field is required.');
+            }           
+            
+            else {
+                $('#otherFieldDiv_t').hide();
+                $('#otherFieldDiv_cv').hide();
+                $('#otherFieldDiv_ins').hide();
+                $('#otherFieldDiv_pdf').hide();
+                $('#otherFieldDiv').hide();
+                $('#otherFieldDiv_i').hide();
+                $('#otherFieldDiv_c').hide();
+                $('#otherFieldDiv_r').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_intern').hide();
+                $('#otherFieldDiv_d').hide();
+                $('#otherFieldDiv_s').hide();
+                $('#otherFieldDiv_time').hide();
+                $('#otherFieldDiv_n').hide();
+                $('#otherFieldDiv_u').hide();
+                // $('#itemname').removeAttr('required');
+                // $('#itemname').removeAttr('data-error');
+            }
+        });
+        $("#profiletype").trigger("change"); */       
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let formData = {
+                profiletype: profiletype.value,
+                name: customerName.value,
+                email: customerEmail.value,
+                phone: customerPhone.value,
+                CompanyName: companyname.value,
+                Itemname: itemname.value,
+                TypeofIndustry : typeofindustry.value,
+                Typeofcontract: typeofcontract.value,
+                Nameofproductandarea : nameofproductandarea.value,
+                AboutInstitute : aboutinstitute.value,
+                Attachpdfoption:attachpdfoption.value,
+                Selectposition :selectposition.value,
+                Institute : institute.value,
+                Degree : degree.value,
+                Semester :semester.value,
+                Timeperiod:timeperiod.value,
+                Notes :notes.value,
+                Uploadcvoption: uploadcvoption.value,
+                
+                // message: customerMessage.value
+
+            }
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/contactUs', true);
+            xhr.setRequestHeader('content-type', 'application/json');
+            xhr.onload = function () {
+                console.log("XHR RESPONSE", xhr.responseText);
+                if (xhr.responseText == 'success') {
+                    alert('Something went wrong')
+
+
+                } else {
+                    profiletype.value = '';
+                    customerName.value = '';
+                    customerEmail.value = '';
+                    customerPhone.value = '';
+                    companyname.value = '';
+                    itemname.value='';
+                    typeofindustry.value = '';
+                    typeofcontract.value ='';
+                    nameofproductandarea.value ='';
+                    aboutinstitute.value ='';
+                    attachpdfoption.value='';
+                    selectposition.value='';
+                    institute.value='';
+                    degree.value='';
+                    semester.value='';
+                    timeperiod.value='';
+                    notes.value='';
+                    uploadcvoption.value='';
+                    // customerMessage.value = '';
+                }
+            }
+            xhr.send(JSON.stringify(formData));
+            console.log(formData);
+        })
+    });
+</script>
+
+
+{% endblock %}
