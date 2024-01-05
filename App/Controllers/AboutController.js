@@ -7,7 +7,7 @@ module.exports = {
     about: async function(req, res) {
         try {
             console.log("==");
-            
+             console.log("==>>>>>>>>11");
             let aboutCount = await Sys.App.Services.UserServices.getAboutCount({}); //gets the no of docs
             console.log("count", aboutCount);
 
@@ -35,7 +35,9 @@ module.exports = {
     },
 
     getAbout: async function(req,res){
+      console.log("==>>>>>>>>22");
           try {
+            console.log("==>>>>>>>>33");
             let start = parseInt(req.query.start);
             let length = parseInt(req.query.length);
             let search = req.query.search.value;
@@ -61,11 +63,14 @@ module.exports = {
               res.send(obj);
           } catch (e) {
               console.log("Error",e);
+              console.log("==>>>>>>>>11Err");
           }
     },
 
     aboutAdd: async function(req, res){
+      console.log("==>>>>>>>>44");
         try {
+          console.log("==>>>>>>>>55");
           let about = await Sys.App.Services.UserServices.getByDataAbout({ });
           console.log('about', about);
               var data = {
@@ -84,21 +89,22 @@ module.exports = {
     aboutAddPost: async function(req, res){
 
       try {
-        console.log(req.files,"image");
+        // console.log("filess@@@@@@@@@",req.files,"=================",aboutImg);
+        // console.log("image sss",req.body);
         // //start of new code
-        // let image = req.files.aboutImage;
-        // console.log("Image", image);
-        // var re = /(?:\.([^.]+))?$/;
-        // var ext3 = re.exec(image.name)[1];
-        // let aboutImage = Date.now() +'_'+ Math.floor(Math.random() * 1000) +'.' + ext3;
-        // let aboutImg = '/aboutImage/'+aboutImage;
-        // // Use the mv() method to place the file somewhere on your server
-        // await image.mv('./public/aboutImage/' + aboutImage, async function(err) {
-        //     if (err) {
-        //         req.flash('error', 'Error Uploading Image');
-        //         return res.redirect('about/addAbout');
-        //       }
-        // });
+        let image = req.files.aboutImage;
+        console.log("Image", image);
+        var re = /(?:\.([^.]+))?$/;
+        var ext3 = re.exec(image.name)[1];
+        let aboutImage = Date.now() +'_'+ Math.floor(Math.random() * 1000) +'.' + ext3;
+        let aboutImg = '/aboutImage/'+aboutImage;
+        // Use the mv() method to place the file somewhere on your server
+        await image.mv('./public/aboutImage/' + aboutImage, async function(err) {
+            if (err) {
+                req.flash('error', 'Error Uploading Image');
+                return res.redirect('about/addAbout');
+              }
+        });
         //end of newcode
         let about = await Sys.App.Services.UserServices.insertAboutData({
           heading:              req.body.heading,
@@ -109,7 +115,7 @@ module.exports = {
           clients:              req.body.clients,
           ourValues:            req.body.ourValues,
           ourMission:           req.body.ourMission,
-          // about_image :         aboutImg,
+          about_image :         aboutImg,
 
           // image:                aboutImg,
           // name_1:               req.body.name_1,
@@ -147,8 +153,7 @@ module.exports = {
     aboutUpdatePost: async function(req, res){
         try {
         console.log(req.files,"kkkkkkkkkkkkimage");
-        let image = req.files.aboutImage;
-        console.log("Image", image);
+          console.log("Image", image);
         var re = /(?:\.([^.]+))?$/;
         console.log(image,"kjhgfdx");
         var ext3 = re.exec(image.name)[1];

@@ -308,10 +308,7 @@ fs.readdirSync(path.join(__dirname, '../', './Game'))
             }
 
         });
-
     });
-
-
 Sys.Log.info('Loading... Router');
 // Load Router
 fs.readdirSync(join(__dirname, '../App/Routes'))
@@ -319,13 +316,10 @@ fs.readdirSync(join(__dirname, '../App/Routes'))
     .forEach(function(file) {
         Sys.App.use('/', require(join(join(__dirname, '../App/Routes'), file))); // Register Router to app.use
     });
-
-
 Sys.Log.info('Initializing Variables');
 Sys.Rooms = [];
 Sys.Tournaments = [];
 Sys.Timers = [];
-
 Sys.Log.info('Loading... DB Connection');
 // Mongodb Connection
 
@@ -334,13 +328,10 @@ if (Sys.Config.Database.connectionType == 'local') {
     dbURI = "mongodb+srv://Chemoro-website:uPptTvObUr4iweB3@cluster0.j0cep2u.mongodb.net/";
 
 } else {
-    dbURI = 'mongodb://' + Sys.Config.Database[Sys.Config.Database.connectionType].mongo.user + ':' + Sys.Config.Database[Sys.Config.Database.connectionType].mongo.password + '@' + Sys.Config.Database[Sys.Config.Database.connectionType].mongo.host + ':' + Sys.Config.Database[Sys.Config.Database.connectionType].mongo.port + '/' + Sys.Config.Database[Sys.Config.Database.connectionType].mongo.database;
+    dbURI = "mongodb+srv://Chemoro-website:uPptTvObUr4iweB3@cluster0.j0cep2u.mongodb.net/";
 
 }
-
-
 mongoose.connect(dbURI, Sys.Config.Database.option);
-
 // CONNECTION EVENTS
 // When successfully connected
 mongoose.connection.on('connected', async function() {
@@ -348,10 +339,8 @@ mongoose.connection.on('connected', async function() {
     Sys.Log.info('Mongoose default connection open to ' + dbURI);
     Sys.Log.info('Loading... Setting');
     // Sys.Setting = await Sys.App.Services.SettingsServices.getSettingsData({});
-
     Sys.Io = require('socket.io')(Sys.Server, { 'pingTimeout': Sys.Config.Socket.pingTimeout, 'pingInterval': Sys.Config.Socket.pingInterval });
     Sys.Log.info('Loading... Socket');
-
     Sys.Io.on('connection', async function(socket) {
         Sys.Log.info('Some One Connected :' + socket.id);
         // Socket for Admin Dashboard Only.
@@ -359,17 +348,11 @@ mongoose.connection.on('connected', async function() {
             // Room for Admin Dashboard only
             socket.join('memory');
         })
-
     });
-
-
-
     Sys.Server.listen(Sys.Config.Socket.port, function() {
         Sys.App.use(function(req, res, next) {
             res.render('404.html');
         });
-
-
         console.log("(---------------------------------------------------------------)");
         console.log(" |                    Server Started...                        |");
         console.log(" |                  http://" + Sys.Config.Database[Sys.Config.Database.connectionType].mongo.host + ":" + Sys.Config.Socket.port + "                      |");

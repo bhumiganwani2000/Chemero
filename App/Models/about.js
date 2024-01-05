@@ -6,7 +6,6 @@ const aboutSchema = new Schema({
 		type: 'string',
 		required: true
 	},
-
 	introduction: {
 		type: 'string',
 		required: true
@@ -39,27 +38,6 @@ const aboutSchema = new Schema({
 		type: 'string',
 		required: true
 	},
-
-	//For Uploading Image 1
-	// image: {
-	// 	type: 'string',
-	// 	required: true
-	// },
-	// name_1:{
-	// 	type: 'string',
-	// 	required: true
-	// },
-
-	// role_1:{
-	// 	type: 'string',
-	// 	required: true
-	// },
-
-	// description_1:{
-	// 	type: 'string',
-	// 	required: true
-	// },
-	
 	createdAt : { type: Date, default: Date.now() },
 	updatedAt : { type: Date, default: Date.now() },
 	

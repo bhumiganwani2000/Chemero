@@ -430,7 +430,7 @@ module.exports = {
               }  
               let duty = [];
                 let duties = req.body.duties
-                    console.log(" Duty{{{{{{{{{}}}}}}}}}}",duty);
+                    console.log("Duty{{{{{{{{{}}}}}}}}}}",duty);
 
                 if(Array.isArray(req.body.duties)  == false )
                 {
@@ -447,6 +447,7 @@ module.exports = {
                 }    
               if (productCategory) {   
               if (req.files) {
+                console.log(">>>",req.files);
                   image1 = req.files.productImage;
                 if (Array.isArray(req.files.productImage) != false) {
                     for (let i = 0; i < image1.length; i++) {
@@ -468,8 +469,7 @@ module.exports = {
              }
              let new_productcategory = await Sys.App.Services.ProductCategoryServices.getProductCategoryData({
                 productCategoryName: req.body.productCategoryName,
-            });
-                
+            }); 
                  updateData = {
                     productCategoryName: req.body.productCategoryName,
                     is_separateCategory: req.body.is_separateCategory ? req.body.is_separateCategory: 'false',

@@ -14,6 +14,16 @@
             "date": 1704263031612,
             "name": "Log/alfa-03-01-2024.log",
             "hash": "547a1a3bf4503dc820b44e0de17179d9"
+        },
+        {
+            "date": 1704344142935,
+            "name": "Log/alfa-04-01-2024.log",
+            "hash": "761603e4fb04a3659ca963093f00cb27"
+        },
+        {
+            "date": 1704430373560,
+            "name": "Log/alfa-05-01-2024.log",
+            "hash": "f20a3306985c1dbef546d11824f3d5dc"
         }
     ],
     "hashType": "md5"

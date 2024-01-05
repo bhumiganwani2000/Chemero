@@ -1,5 +1,5 @@
 module.exports = {
-	port 		: 4001,
+	port 		: process.env.PORT || 4001,
 	pingTimeout	: 10000,
 	pingInterval: 2000
 }
